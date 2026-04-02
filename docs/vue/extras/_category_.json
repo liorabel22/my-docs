@@ -1,0 +1,10 @@
+{
+  "label": "Extras",
+  "position": 10,
+  "collapsible": true,
+  "collapsed": false,
+  "className": "vue-extras",
+  "link": {
+    "type": "generated-index"
+  }
+}

@@ -1,0 +1,100 @@
+---
+id: ways-of-using-vue
+title: Ways of Using Vue
+pagination_label: title
+sidebar_label: Ways of Using Vue
+sidebar_position: 1
+sidebar_class_name: ways-of-using-vue-sidebar
+sidebar_key: ways-of-using-vue-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - ways of using vue
+  - use
+  - ways of use
+  - vue
+  - vue 3
+  - vue3
+description: Learn about the different ways to use Vue in your projects, including CDN, NPM, and more. Discover which method is best for your needs and how to get started quickly.
+tags:
+  - ways of using vue
+  - use
+  - ways of use
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 14/3/2026
+  author: Lior Abel
+---
+
+# Ways of Using Vue
+
+Vue is designed to be flexible and incrementally adoptable. Depending on your use case, Vue can be used in different ways:
+
+- Enhancing static HTML without a build step
+- Embedding as Web Components on any page
+- Single-Page Application (SPA)
+- Fullstack / Server-Side Rendering (SSR)
+- Jamstack / Static Site Generation (SSG)
+- Targeting desktop, mobile, WebGL, and even the terminal
+
+## Enhancing Static HTML
+Vue can be used as a standalone script file without a build step, making it an easy and declarative alternative to jQuery for integrating into existing stacks with minimal frontend logic.
+
+The simplest way to use Vue is to include it via a CDN and enhance static HTML. This is great for adding interactivity to existing pages without a build step.
+
+```html
+<div id="app">
+  {{ message }}
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+  const { createApp } = Vue;
+  createApp({
+    data() {
+      return {
+        message: 'Hello Vue!'
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
+## Embedding as Web Components
+Vue can also be used to create Web Components, which are reusable custom elements that can be used in any web page or framework. This allows you to encapsulate your Vue components and use them across different projects without worrying about dependencies or conflicts.
+```javascript
+import { defineCustomElement } from 'vue'
+import MyComponent from './MyComponent.vue'
+
+const MyElement = defineCustomElement(MyComponent)
+customElements.define('my-element', MyElement)
+```
+
+## Single-Page Application (SPA)
+For more complex applications, Vue can be used to build Single-Page Applications (SPAs). This involves using Vue Router for client-side routing and Vuex for state management. SPAs provide a more dynamic user experience by loading content without refreshing the page.
+
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+createApp(App)
+  .use(router)
+  .use(store)
+  .mount('#app')
+```
+
+## Fullstack / Server-Side Rendering (SSR)
+Vue can also be used for server-side rendering (SSR) to improve performance and SEO. This involves rendering the initial HTML on the server and then hydrating it on the client. Vue provides tools like Nuxt.js to make SSR easier to implement.
+
+## Jamstack / Static Site Generation (SSG)
+Vue can be used for static site generation (SSG) with tools like Nuxt.js. This allows you to pre-render your application into static HTML files, which can be served from a CDN for fast performance and improved SEO.
+
+## Targeting Desktop, Mobile, WebGL, and Terminal
+Vue can also be used to build applications for desktop, mobile, WebGL, and even the terminal. With tools like Electron for desktop applications, NativeScript for mobile apps, and Three.js for WebGL, Vue can be used to create a wide range of applications across different platforms. For example, you can use Electron to build a desktop application with Vue:
+
+In summary, Vue offers a variety of ways to use it in your projects, from enhancing static HTML to building complex SPAs and even targeting different platforms. Choose the method that best fits your needs and start building with Vue today!

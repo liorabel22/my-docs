@@ -1,0 +1,72 @@
+---
+id: single-file-component
+title: Single-File Component (SFC)
+pagination_label: title
+sidebar_label: Single-File Component
+sidebar_position: 1
+sidebar_class_name: single-file-component-sidebar
+sidebar_key: single-file-component-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - single-file component
+  - sfc
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Single-File Components (SFC) in Vue, including their structure, usage, and best practices. Discover how to create and manage SFCs effectively in your Vue projects.
+tags:
+  - single-file component
+  - sfc
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 14/3/2026
+  author: Lior Abel
+---
+
+# Single-File Component (SFC)
+
+Single-File Components (SFC) are a powerful feature of Vue that allows you to encapsulate the template, script, and styles of a component in a single file with a `.vue` extension. This makes it easier to manage and maintain your components, as all related code is kept together.
+An SFC typically consists of three sections:
+- `<template>`: Contains the **HTML** markup for the component.
+- `<script>`: Contains the **JavaScript** logic for the component, including data, methods, computed properties, and lifecycle hooks.
+- `<style>`: Contains the **CSS** styles for the component.
+Here is an example of a simple SFC:
+
+```vue
+<script setup>
+import { ref } from 'vue'
+const greeting = ref('Hello World!')
+</script>
+
+<template>
+  <p class="greeting">{{ greeting }}</p>
+</template>
+
+<style>
+.greeting {
+  color: red;
+  font-weight: bold;
+}
+</style>
+```
+
+## Why Use SFCs?
+Although SFCs require a build step, they provide several benefits:
+- **Encapsulation**: All the code related to a component is contained in a single file, making it easier to manage and understand.
+- **Reusability**: SFCs can be easily reused across different parts of your application, promoting code reuse and consistency.
+- **Tooling Support**: Many tools and libraries in the Vue ecosystem are designed to work seamlessly with SFCs, providing features like hot module replacement (HMR), linting, and formatting.
+- **Scoped Styles**: SFCs allow you to scope your styles to the component, preventing them from affecting other parts of your application.
+- **Better Organization**: SFCs help you organize your code by keeping related logic together, making it easier to navigate and maintain your codebase.
+Overall, Single-File Components are a fundamental part of Vue development and are widely used in Vue projects to create modular, maintainable, and reusable components.
+
+## When to Use SFCs?
+It is recommended to use SFC in the following scenarios:
+- Single-Page Applications (SPA)
+- Static Site Generation (SSG)
+- Any non-trivial frontend where a build step can be justified for better development experience (DX)

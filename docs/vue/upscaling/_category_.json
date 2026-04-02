@@ -1,0 +1,10 @@
+{
+  "label": "Upscaling",
+  "position": 5,
+  "collapsible": true,
+  "collapsed": false,
+  "className": "vue-upscaling",
+  "link": {
+    "type": "generated-index"
+  }
+}

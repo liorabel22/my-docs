@@ -1,0 +1,16 @@
+.twoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.col {
+  min-width: 0;
+}
+
+@media screen and (max-width: 996px) {
+  .twoCols {
+    grid-template-columns: 1fr;
+  }
+}

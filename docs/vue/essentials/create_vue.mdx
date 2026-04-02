@@ -1,0 +1,345 @@
+---
+id: creating-a-vue-app
+title: Creating a Vue Application
+pagination_label: title
+sidebar_label: Creating a Vue Application
+sidebar_position: 1
+sidebar_class_name: creating-a-vue-app-sidebar
+sidebar_key: creating-a-vue-app-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - creating a vue application
+  - create
+  - creating
+  - new
+  - install
+  - vue
+  - vue 3
+  - vue3
+description: Learn how to create a Vue application, including setup, configuration, and best practices. Discover the different ways to start a Vue project and get up and running quickly.
+tags:
+  - creating a vue application
+  - create
+  - creating
+  - new
+  - install
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 14/3/2026
+  author: Lior Abel
+---
+
+# Creating a Vue Application
+
+## Single Page Application (SPA)
+
+We will create a Vue application to use with [SPA](../extras/01-ways_using.mdx#single-page-application-spa). This is the most common way to use Vue. The build setup is based on [Vite](https://vitejs.dev/). We should make sure that we run the latest version of [Node.js](https://nodejs.org/).
+
+Run the following command in your terminal:
+
+```bash
+npm create vue@latest
+```
+
+There will be a few questions to answer:
+- **Project name**: The name of your project. This will be used as the folder name and in the package.json file.
+- **Add TypeScript?**: Whether to use TypeScript or not. If you are new to Vue, you can choose "No" to start with JavaScript. You can always add TypeScript later.
+- **Add JSX Support?**: Whether to use JSX or not. This is optional and depends on your preference. If you are new to Vue, you can choose "No" to start with the standard template syntax.
+- **Add Vue Router for Single Page Application development?**: Whether to include Vue Router for handling routing in your application. If you plan to build a single-page application, it's recommended to choose "Yes".
+- **Add Pinia for state management?**: Whether to include Pinia for state management in your application. If you plan to manage complex state, it's recommended to choose "Yes".
+- **Add Vitest for Unit Testing?**: Whether to include Vitest for unit testing in your application. If you want to write tests for your application, it's recommended to choose "Yes".
+- **Add an End-to-End Testing Solution?**: Whether to include Cypress / Nightwatch / Playwright for end-to-end testing in your application. If you want to test the entire application flow, it's recommended to choose "Yes".
+- **Add ESLint for code quality?**: Whether to include ESLint for maintaining code quality. It's generally recommended to choose "Yes" to ensure your code adheres to best practices and is free of common errors.
+- **Add Prettier for code formatting?**: Whether to include Prettier for consistent code formatting. It's generally recommended to choose "Yes" to maintain a consistent code style across your project.
+- **Add Vue DevTools 7 extension for debugging? (experimental)**: Whether to include the Vue DevTools extension for debugging your application. If you want to have a better debugging experience, it's recommended to choose "Yes".
+
+it will look like:
+
+```bash
+✔ Project name: … <your-project-name>
+✔ Add TypeScript? … No / Yes
+✔ Add JSX Support? … No / Yes
+✔ Add Vue Router for Single Page Application development? … No / Yes
+✔ Add Pinia for state management? … No / Yes
+✔ Add Vitest for Unit testing? … No / Yes
+✔ Add an End-to-End Testing Solution? … No / Cypress / Nightwatch / Playwright
+✔ Add ESLint for code quality? … No / Yes
+✔ Add Prettier for code formatting? … No / Yes
+✔ Add Vue DevTools 7 extension for debugging? (experimental) … No / Yes
+
+Scaffolding project in ./<your-project-name>...
+Done.
+```
+
+After the project is created, navigate to the project folder and start the development server:
+
+```bash
+cd <your-project-name>
+npm install
+npm run dev
+```
+
+:::note[Example Components]
+
+The example components are written using the Composition API.
+:::
+
+In order to create a production build, run the following command:
+
+```bash
+npm run build
+```
+This will create a `dist` folder with the production build of your application. You can then deploy this folder to your hosting provider.
+
+## CDN
+
+We can use Vue from CDN. There is no build step, the setup is much easier. It suits for [Enhancing Static HTML](../extras/01-ways_using.mdx#enhancing-static-html) use case, or integrating with a backend framework.
+
+```html
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+```
+
+Here is a full example:
+
+import TwoCols, { Left, Right } from '@site/src/components/TwoCols';
+
+<TwoCols>
+  <Left>
+    ```html title="index.html"
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+      <div id="app">{{ message }}</div>
+
+      <script>
+        const { createApp, ref } = Vue
+
+        createApp({
+          setup() {
+            const message = ref('Hello vue!')
+            return {
+              message
+            }
+          }
+        }).mount('#app')
+      </script>
+    ```
+  </Left>
+
+  <Right>
+    ```html title="index.html"
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+      <div id="app">{{ message }}</div>
+    ```
+
+    ```js title="main.js"
+      const { createApp, ref } = Vue
+
+      createApp({
+        setup() {
+          const message = ref('Hello vue!')
+          return {
+            message
+          }
+        }
+      }).mount('#app')
+    ```
+  </Right>
+</TwoCols>
+
+### Using the ES Module Build
+If you want to use the ES module build, you can use the following script tag:
+
+<TwoCols>
+  <Left>
+    ```html title=index.html {3-4}
+      <div id="app">{{ message }}</div>
+
+      <script type="module">
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+          setup() {
+            const message = ref('Hello Vue!')
+            return {
+              message
+            }
+          }
+        }).mount('#app')
+      </script>
+    ```
+  </Left>
+  <Right>
+    ```html title="index.html"
+      <div id="app">{{ message }}</div>
+    ```
+
+    ``` js title="main.js" {1}
+      import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+      createApp({
+        setup() {
+          const message = ref('Hello Vue!')
+          return {
+            message
+          }
+        }
+      }).mount('#app')
+    ```
+  </Right>
+</TwoCols>
+
+### Import Maps
+If we still want to import from vue (`import { createApp } from 'vue'`), we can use import maps:
+
+<TwoCols>
+  <Left>
+    ```html title=index.html {1-7, 12}
+      <script type="importmap">
+        {
+          "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+          }
+        }
+      </script>
+
+      <div id="app">{{ message }}</div>
+
+      <script type="module">
+        import { createApp, ref } from 'vue'
+
+        createApp({
+          setup() {
+            const message = ref('Hello Vue!')
+            return {
+              message
+            }
+          }
+        }).mount('#app')
+      </script>
+    ```
+  </Left>
+  <Right>
+    ``` html title="index.html" {1-7}
+      <script type="importmap">
+        {
+          "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+          }
+        }
+      </script>
+
+      <div id="app">{{ message }}</div>
+    ```
+
+    ``` js title="main.js" {1}
+      import { createApp, ref } from 'vue'
+
+      createApp({
+        setup() {
+          const message = ref('Hello Vue!')
+          return {
+            message
+          }
+        }
+      }).mount('#app')
+    ```
+  </Right>
+</TwoCols>
+
+## The Application Instance
+The application instance is created by calling the `createApp` function. This function takes an options object as an argument and returns an application instance.
+
+```js
+import { createApp } from 'vue'
+
+const app = createApp({
+  // options
+})
+```
+
+## Root Component
+The options object passed to `createApp` is the root component of the application. This component is the entry point of the application and can contain other components.
+
+In [SFC](../upscaling/01-single_file_component.mdx) we use another file (component) as root.
+
+```vue
+import { createApp } from 'vue'
+// import the root component App from a single-file component.
+import App from './App.vue'
+
+const app = createApp(App)
+```
+
+Other components are child component of the root component (`App.vue`), let's see an example for component tree:
+
+```
+App.vue
+├── Header.vue
+├── Main.vue
+│   ├── Article.vue
+│   └── Sidebar.vue
+└── Footer.vue
+```
+
+## Mounting the Application
+After creating the application instance, we need to mount it to a DOM element. This is done by calling the `mount` method on the application instance and passing a CSS selector or a DOM element as an argument.
+
+```html
+<div id="app"></div>
+```
+
+```js
+app.mount('#app')
+```
+
+The content of the root component will be rendered inside the DOM element with the id of `app`. This is where the Vue application will be displayed on the page. The DOM element itself is not considered part of the application.
+
+The `mount` method can only be called once per application instance, and just after all app configuration and asset registrations are done.
+
+Before mounting the application, we can configure it by calling various methods on the application instance. For example, we can register global components, directives, or plugins.
+
+```js
+app.component('MyComponent', MyComponent)
+app.directive('my-directive', {
+  // directive definition
+})
+app.use(MyPlugin)
+```
+
+## Application Configuration
+The application instance expose a `.config`. This will allow us to config app-level options. For example, we can set `app.config.globalProperties` to add global properties that will be available in all components.
+
+```js
+app.config.globalProperties.$myGlobalProperty = 'Hello World!'
+```
+
+Or we can set `app.config.errorHandler` to handle errors globally.
+
+```js
+app.config.errorHandler = (err, vm, info) => {
+  // handle error
+}
+```
+
+## Multiple Application Instances
+Vue allows us to create multiple application instances on the same page. Each application instance is independent and can have its own root component and configuration.
+
+```html
+<div id="app1"></div>
+<div id="app2"></div>
+```
+
+```js
+const app1 = createApp(App1)
+app1.mount('#app1')
+
+const app2 = createApp(App2)
+app2.mount('#app2')
+```

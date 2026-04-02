@@ -1,0 +1,461 @@
+---
+id: reactivity-fundamentals-composition
+title: Reactivity Fundamentals - Composition
+pagination_label: title
+sidebar_label: Reactivity Fundamentals - Composition
+sidebar_position: 2
+sidebar_class_name: reactivity-fundamentals-composition-sidebar
+sidebar_key: reactivity-fundamentals-composition-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - reactivity fundamentals
+  - reactivity
+  - composition api
+  - composition-api
+  - composition
+  - vue
+  - vue 3
+  - vue3
+description: Learn the fundamentals of reactivity in Vue, including how to create reactive state, watch for changes, and optimize performance. Discover the core concepts that make Vue's reactivity system powerful and intuitive.
+tags:
+  - reactivity fundamentals
+  - reactivity
+  - composition api
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 20/3/2026
+  author: Lior Abel
+---
+
+# Reactivity Fundamentals - Composition API
+
+## `ref()`
+
+### What is `ref()`?
+
+The recomended way to create reactive state in Vue is by using the `ref()` function. It allows you to create a reactive reference to a value, which can be a primitive, an object, or even an array.
+
+### Basic Example
+
+```js
+import { ref } from 'vue';
+
+const year = ref(2026);
+```
+
+### How `ref()` Works
+
+`ref()` takes the argument and wrap it in a ref object with `.value` property.
+
+```js
+const year = ref(2026);
+
+console.log(year); // { value: 2026 }
+console.log(year.value); // 2026
+
+year.value = 2027;
+console.log(year.value); // 2027
+```
+
+### Type Inference with `ref()`
+
+Refs infer the type from initial value:
+
+```ts
+import { ref } from 'vue';
+
+// inferred as Ref<number>
+const year = ref(2026);
+
+// => TS Error: Type 'string' is not assignable to type 'number'
+year.value = '2026';
+```
+
+#### Explicit Typing
+
+For more complex types, you can explicitly specify the type:
+
+```ts
+import { ref } from 'vue';
+import type { Ref } from 'vue';
+
+const year: Ref<number | string> = ref(2026);
+
+year.value = '2026'; // OK
+```
+
+It's also possible to pass a generic argument to `ref()`:
+
+```ts
+import { ref } from 'vue';
+
+const year = ref<number | string>(2026);
+year.value = '2026'; // OK
+```
+
+For specifying a generic type argument without initial value, the type will be `undefined` union the specified type:
+
+```ts
+import { ref } from 'vue';
+
+// inferred type: Ref<number | string | undefined>
+const year = ref<number | string>();
+```
+
+### Template Unwrapping
+
+When using in templates, you can omit the `.value` property, and Vue will automatically unwrap the ref.
+
+:::warning
+Only the top-level property is unwrap.
+
+in the example below, `year` and `nested` are top-level properties, but `nested.id` is not:
+
+```js
+import { ref } from 'vue';
+
+const year = ref(2026);
+const nested = { id: ref(1) })
+```
+
+This will work as expected:
+
+```html
+{{ year + 1 }} <!-- 2027 -->
+```
+
+While this will not work:
+
+```html
+{{ nested.id + 1 }} <!-- [object object]1 -->
+```
+
+This is because `nested.id` is not unwrapped, in order to fix this, we can destructure `id` into top-level property:
+
+```js
+const { id } = nested;
+```
+
+```html
+{{ id + 1 }} <!-- 2 -->
+```
+
+ref does get unwrapped if it is the final evaluated value of a text interpolation (i.e. a `{{ }}`):
+
+```html
+{{ nested.id }} <!-- 1 -->
+```
+:::
+
+mutate ref directly in event handlers:
+
+```html
+<button @click="year++">{{ year }}</button>
+```
+
+We are usen refs because it is simpelest way to keep track of primitive variable, you put it in an object with `get` and `set` so whenevr a change occurs, Vue can track it and update the DOM accordingly.
+
+```js
+// pseudo code, not actual implementation
+const myRef = {
+    _value: 0,
+    get value() {
+        track()
+        return this._value
+    },
+    set value(newValue) {
+        this._value = newValue
+        trigger()
+    }
+}
+```
+
+You can pass a ref into helper functions or composables, and those helpers will always “see” and update the current value, without breaking reactivity.
+    
+```js
+function increment(ref) {
+    ref.value++;
+}
+const count = ref(0);
+increment(count);
+console.log(count.value); // 1
+```
+
+refs can hold any type of value, including objects and arrays. When a ref holds an object or an array, the properties of that object or the items in that array are also reactive. This means that cahnges will be detected even when mutating a nested object or array.
+
+```js
+import { ref } from 'vue'
+
+const obj = ref({
+    nested: { count: 0 },
+    arr: ['foo', 'bar']
+})
+
+function mutateDeeply() {
+    // these will work as expected.
+    obj.value.nested.count++
+    obj.value.arr.push('baz')
+}
+```
+
+Non-primitive values turned reactive proxies via [`reactive()`](#reactive).
+
+### Performance Considerations
+
+We can opt-out deep rectivity by using `shallowRef()`, which will only make the top-level value reactive, but not its nested properties.
+
+:::info[Shallow Refs]
+
+`shallowRef()` is useful when you want to create a reactive reference to a non-primitive value, but you don't want Vue to make the nested properties reactive. This can be useful for performance reasons, or when you want to manage the reactivity of the nested properties manually.
+
+```js
+import { shallowRef } from 'vue';
+
+const state = shallowRef({ count: 1});
+
+// does NOT trigger change
+state.valus.count = 2
+
+// does trigger change
+state.value = { count: 2 }
+```
+
+Shallow APIs create state that is reactive only at the root level. The trade-off is that all nested properties should be treated as immutables, updates are triggered by replacing the root state:
+
+```js
+const shallowArray = shallowRef([
+    /* big list of deep objects */
+])
+
+// this won't trigger updates...
+shallowArray.value.push(newObject)
+// this does:
+shallowArray.value = [...shallowArray.value, newObject]
+
+// this won't trigger updates...
+shallowArray.value[0].foo = 1
+// this does:
+shallowArray.value = [
+    {
+        ...shallowArray.value[0],
+        foo: 1
+    },
+    ...shallowArray.value.slice(1)
+]  
+```
+
+:::
+
+Useful for avoiding observe a large object, or when inner state is managed by an external library.
+
+### DOM Updates
+
+The DOM updates are not synchronously, they happen on the "next tick".
+
+```js
+import { nextTick } from 'vue'
+
+async function increment() {
+    count.value++
+    await nextTick()
+    // Now the DOM is updated
+}
+```
+
+## `reactive()`
+
+### What is `reactive()`?
+`reactive()` is a function that takes an object and returns a reactive proxy of that object. It is used to create reactive state from objects and arrays.
+
+Reactive objects are [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) where every property is reactive, deeply (reactivity goes all the way down the object tree).
+
+:::info
+    Using `ref()` with an object, Vue internally makes that object reactive in the same deep down.
+:::
+
+### Basic Example
+
+```js
+import { reactive } from 'vue';
+
+const state = reactive({
+    count: 0,
+    nested: {
+        message: 'Hello'
+    }
+});
+```
+
+### Use in Template
+
+```html
+<button @click="state.count++">
+    {{ state.count }}
+</button>
+```
+
+### Typing `reactive()`
+
+The type of the reactive object is inferred from the initial value:
+
+```ts
+import { reactive } from 'vue'
+
+// inferred type: { title: string }
+const book = reactive({ title: 'Vue 3 Guide' })
+```
+
+Explicitly type, use interface:
+
+```ts
+import { reactive } from 'vue'
+
+interface Book {
+    title: string
+}
+
+const book: Book = reactive({ title: 'Vue 3 Guide' })
+```
+
+:::tip
+It's not recommended to use the generic argument of `reactive()` because the returned type, which handles nested ref unwrapping, is different from the generic argument type.
+:::
+
+### Performance Considerations
+
+Similar to [`shllowRef()`](#performance-considerations), you can use `shallowReactive()` to create a reactive object that is only reactive at the root level, but not its nested properties.
+
+```js
+import { shallowReactive } from 'vue';
+
+const state = shallowReactive({
+    count: 0,
+    nested: {
+        message: 'Hello'
+    }
+});
+
+// does NOT trigger change
+state.nested.message = 'Hi'
+
+// does trigger change
+state.nested = { message: 'Hi' }
+```
+
+### Reactive Proxy
+
+The returned value from `reactive()` is a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) of the original object, which is not equal to the original object:
+
+```js
+const raw = {}
+const proxy = reactive(raw)
+
+// proxy is NOT equal to the original.
+console.log(proxy === raw) // false
+```
+
+:::important[Best Practice]
+Only the proxy is reactive, to ensure consistent access to the proxy, calling `reactive()` on the same object alwayes returns the same proxy, calling `reactive()` on an existiong proxy also returns that same proxy:
+
+```js
+// calling reactive() on the same object returns the same proxy
+console.log(reactive(raw) === proxy) // true
+
+// calling reactive() on a proxy returns itself
+console.log(reactive(proxy) === proxy) // true
+```
+:::
+
+This also applied on nested objects:
+```js
+const proxy = reactive({})
+
+const raw = {}
+proxy.nested = raw
+
+console.log(proxy.nested === raw) // false
+```
+
+### Limitations
+
+1. **Limited value types:** Can't hold [primitive types](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)
+2. **Cannot replace entire object:** The referance must be preserved in order to keep the reactivity.
+    ```js
+    let state = reactive({ count: 0 })
+
+    // the above reference ({ count: 0 }) is no longer being tracked
+    // (reactivity connection is lost!)
+    state = reactive({ count: 1 })
+    ```
+
+    In the above example, any template or other code that already captured the first `state`, still refer to the old proxy.
+3. ** Not destructure-friendly:** We will lose reactivity when destructureing primitive type properties, or when pass that property into a function:
+
+    ```js
+    const state = reactive({ count: 0 })
+
+    // count is disconnected from state.count when destructured.
+    let { count } = state
+    // does not affect original state
+    count++
+
+    // the function receives a plain number and
+    // won't be able to track changes to state.count
+    // we have to pass the entire object in to retain reactivity
+    callSomeFunction(state.count)
+    ```
+
+:::danger[Important]
+`ref()` is the recommended way to create reactive state.
+:::
+
+## Additional Ref Unwrapping Details
+
+### As Reactive Object Properties
+
+When a ref is assigned to a property of a reactive object, the ref will be automatically unwrapped when accessed.
+
+```js
+const count = ref(0)
+const state = reactive({
+  count
+})
+
+console.log(state.count) // 0
+
+state.count = 1
+console.log(count.value) // 1
+```
+
+If a new ref is assigned to a property linked to an existing ref, it will replace the old ref:
+
+```js
+const otherCount = ref(2)
+
+state.count = otherCount
+console.log(state.count) // 2
+// original ref is now disconnected from state.count
+console.log(count.value) // 1
+```
+
+This not happens with `shallowReactive()`, which does not unwrap refs:
+
+### Caveat: Arrays and Collections
+
+No unwrapping when ref is accessed as an element of a reactive array or native collection:
+
+```js
+const books = reactive([ref('Vue 3 Guide')])
+// need .value here
+console.log(books[0].value)
+
+const map = reactive(new Map([['count', ref(0)]]))
+// need .value here
+console.log(map.get('count').value)
+```
