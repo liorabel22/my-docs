@@ -3,7 +3,7 @@
   "position": 1,
   "collapsible": true,
   "collapsed": false,
-  "className": "red",
+  "className": "vue",
   "link": {
     "type": "generated-index"
   }
