@@ -159,7 +159,7 @@ mutate ref directly in event handlers:
 <button @click="year++">{{ year }}</button>
 ```
 
-We are usen refs because it is simpelest way to keep track of primitive variable, you put it in an object with `get` and `set` so whenevr a change occurs, Vue can track it and update the DOM accordingly.
+We are using refs because it is simplest way to keep track of primitive variable, you put it in an object with `get` and `set` so whenever a change occurs, Vue can track it and update the DOM accordingly.
 
 ```js
 // pseudo code, not actual implementation
@@ -279,6 +279,21 @@ Reactive objects are [JavaScript Proxies](https://developer.mozilla.org/en-US/do
     Using `ref()` with an object, Vue internally makes that object reactive in the same deep down.
 :::
 
+```js
+function reactive(obj) {
+  return new Proxy(obj, {
+    get(target, key) {
+      track(target, key)
+      return target[key]
+    },
+    set(target, key, value) {
+      target[key] = value
+      trigger(target, key)
+    },
+  })
+}
+```
+
 ### Basic Example
 
 ```js
@@ -291,6 +306,8 @@ const state = reactive({
     }
 });
 ```
+
+`get` and `set` methods of the proxy are often called __proxy traps__.
 
 ### Use in Template
 

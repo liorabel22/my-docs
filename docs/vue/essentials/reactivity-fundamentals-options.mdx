@@ -1,0 +1,110 @@
+---
+id: reactivity-fundamentals-options
+title: Reactivity Fundamentals - Options
+pagination_label: title
+sidebar_label: Reactivity Fundamentals - Options
+sidebar_position: 3
+sidebar_class_name: reactivity-fundamentals-options-sidebar
+sidebar_key: reactivity-fundamentals-options-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - reactivity fundamentals
+  - reactivity
+  - options api
+  - options-api
+  - options
+  - vue
+  - vue 3
+  - vue3
+description: Learn the fundamentals of reactivity in Vue, including how to create reactive state, watch for changes, and optimize performance. Discover the core concepts that make Vue's reactivity system powerful and intuitive.
+tags:
+  - reactivity fundamentals
+  - reactivity
+  - options api
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 20/3/2026
+  author: Lior Abel
+---
+
+# Reactivity Fundamentals - Options API
+
+## `data`
+
+Every property in `data` option (a function that returns an object), is made reactive by Vue. The top-level properties of this object are proxied on the component instance.
+
+```js {2-6}
+export default {
+  data() {
+    return {
+      count: 1
+    }
+  },
+
+  // `mounted` is a lifecycle hook which we will explain later
+  mounted() {
+    // `this` refers to the component instance.
+    console.log(this.count) // => 1
+
+    // data can be mutated as well
+    this.count = 2
+  }
+}
+```
+
+## Declare Reactive Properties Up Front
+
+Vue can only react to properties it knows about from the start. Add properties with value of `null`, `undefined`, or any other placeholder value to make them reactive.
+
+```js
+data() {
+  return {
+    user: null,
+    count: 0
+  }
+}
+```
+
+:::info
+You can add a property later directly on `this`, but Vue will not make it reactive, so changes to it will not automatically update the UI.
+
+```js
+this.newProp = 'hello'
+```
+:::
+
+because `newProp` was not declared in `data()`, so Vue will not react to changes in it.
+
+:::danger
+Vue uses a `$` prefix when exposing its own built-in APIs via the component instance. It also reserves the prefix `_` for internal properties. Do not use these prefixes for top-level `data` properties.
+:::
+
+## Reactive Proxies
+
+Be aware of this case:
+
+```js
+export default {
+  data() {
+    return {
+      someObject: {}
+    }
+  },
+  mounted() {
+    const newObject = {}
+    this.someObject = newObject
+
+    console.log(newObject === this.someObject) // false
+  }
+}
+```
+
+`this.someObject` is a reactive proxy of the original `someObject` object. When we assign a `newObject` to `this.someObject`, it becomes a new reactive proxy, and the original `newObject` is not reactive. Therefore, they are not strictly equal.
+
+> In Vue 3, the state property becomes a reactive wrapper around your object, so do not rely on the original object reference after assigning it.
