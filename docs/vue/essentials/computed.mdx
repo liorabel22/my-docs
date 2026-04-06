@@ -1,0 +1,197 @@
+---
+id: computed-properties-composition
+title: Computed Properties - Composition
+pagination_label: title
+sidebar_label: Computed Properties - Composition
+sidebar_position: 4
+sidebar_class_name: computed-properties-composition-sidebar
+sidebar_key: computed-properties-composition-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - computed
+  - reactivity fundamentals
+  - reactivity
+  - composition api
+  - composition-api
+  - composition
+  - vue
+  - vue 3
+  - vue3
+description: Learn how to use computed properties in Vue 3's Composition API. Computed properties are a powerful way to create reactive data that depends on other reactive data. They are cached based on their dependencies and only re-evaluate when those dependencies change.
+tags:
+  - reactivity fundamentals
+  - reactivity
+  - composition api
+  - computed
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 04/04/2026
+  author: Lior Abel
+---
+
+## Basic Example
+
+In the Composition API, you can create computed properties using the `computed` function from Vue. Here's a basic example:
+
+```js
+<script setup>
+import { reactive, computed } from 'vue'
+
+const author = reactive({
+  name: 'John Doe',
+  books: [
+    'Vue 2 - Advanced Guide',
+    'Vue 3 - Basic Guide',
+    'Vue 4 - The Mystery'
+  ]
+})
+
+// a computed ref
+const publishedBooksMessage = computed(() => {
+  return author.books.length > 0 ? 'Yes' : 'No'
+})
+</script>
+
+<template>
+  <p>Has published books:</p>
+  <span>{{ publishedBooksMessage }}</span>
+</template>
+```
+
+The `computed()` function expects to be passed a [getter function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description), the return value is a **computed ref** (behaves like normal [ref](./reactivity-fundamentals.mdx#ref)).
+
+## Reactivity
+
+Computed property tracks its reactive dependencies. Vue is aware thar `publishedBooksMessage` depends on `author.books`. Whenever `author.books` changes, `publishedBooksMessage` will automatically update to reflect the new value.
+
+## Simplify Template
+
+Computed property simplify the _template_ part by instead of writing complex expressions in the _template_, we can move the logic to the _script_ part and keep the _template_ cleaner.
+
+## Avoid Repetition
+
+Computed properties help to not reapet the same logic in multiple places. For example, if we want to display the message in multiple places, we can just use `publishedBooksMessage` instead of repeating the logic everywhere.
+
+## Caching
+
+Computed properties are cached based. They re-evaluated when some of their dependencies are changed.
+
+```js
+const now = computed(() => Date.now())
+```
+
+The `now` computed property will never update, `Date.now()` is not a reactive dependencies.
+
+## Computed Setters
+
+Computed properties are getter-only by default, but you can also provide a setter function to make them writable. Here's an example:
+
+```js
+<script setup>
+import { ref, computed } from 'vue'
+
+const firstName = ref('John')
+const lastName = ref('Doe')
+
+const fullName = computed({
+  // getter
+  get() {
+    return firstName.value + ' ' + lastName.value
+  },
+  // setter
+  set(newValue) {
+    // Note: we are using destructuring assignment syntax here.
+    [firstName.value, lastName.value] = newValue.split(' ')
+  }
+})
+</script>
+```
+
+Now when you run `fullName.value = 'John Doe'`, the setter will be invoked and `firstName` and `lastName` will be updated accordingly.
+
+import { VersionBanner } from '@site/src/components/VersionBanner'
+
+## Previous Value <VersionBanner version="3.4+" />
+
+The previous value is available as the first argument of the getter:
+
+```js
+<script setup>
+import { ref, computed } from 'vue'
+
+const count = ref(2)
+
+// This computed will return the value of count when it's less or equal to 3.
+// When count is >=4, the last value that fulfilled our condition will be returned
+// instead until count is less or equal to 3
+const alwaysSmall = computed((previous) => {
+  if (count.value <= 3) {
+    return count.value
+  }
+
+  return previous
+})
+</script>
+```
+
+In case of [writeable computed](#computed-setters):
+
+```js
+<script setup>
+import { ref, computed } from 'vue'
+
+const count = ref(2)
+
+const alwaysSmall = computed({
+  get(previous) {
+    if (count.value <= 3) {
+      return count.value
+    }
+
+    return previous
+  },
+  set(newValue) {
+    count.value = newValue * 2
+  }
+})
+</script>
+```
+
+## No Side Effects
+
+Computed getters should perform pure computation and be free from side effects. They should not **mutate another state, make async request, mutate the DOM**.
+
+Later we will discuse [watchers](https://vuejs.org/guide/essentials/watchers), which are perform side effects in response to reactive state changes.
+
+## Avoid Mutating Computed Value
+
+Think of computed as a temporary snapshot- every time the source state changes, a new snapshot is created. We are not suppose to mutate a snapshot, instead update the source state.
+
+## Typing `computed()`
+
+Infers its type according the getter's return type:
+
+```ts
+import { ref, computed } from 'vue'
+
+const count = ref(0)
+
+// inferred type: ComputedRef<number>
+const double = computed(() => count.value * 2)
+
+// => TS Error: Property 'split' does not exist on type 'number'
+const result = double.value.split('')
+```
+
+We can specify explicit type:
+```ts
+const double = computed<number>(() => {
+  // type error if this doesn't return a number
+})
+```
