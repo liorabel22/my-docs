@@ -1,0 +1,131 @@
+---
+id: directives
+title: Directives
+pagination_label: title
+sidebar_label: Directives
+sidebar_position: 6
+sidebar_class_name: directives-sidebar
+sidebar_key: directives-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - template
+  - syntax
+  - directives
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Vue's directives, which are special tokens in the markup that tell the library to do something to a DOM element. Directives are a core feature of Vue's template syntax and allow you to apply reactive behavior to the DOM. They include features like conditional rendering, list rendering, event handling, and more, making it easy to create dynamic and interactive user interfaces.
+tags:
+  - template
+  - syntax
+  - directives
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 08/04/2026
+  author: Lior Abel
+---
+
+Special attributes with the `v-` prefix. Vue provide some [built-in directives](https://vuejs.org/api/built-in-directives) and you can also create your own custom directives.
+
+Directive attribute values should be a single expression (with the exception of `v-for`, `v-on` and `v-slot`).
+
+The directive job is to reactively apply updates to the DOM when the value changes. Take [`v-if`](https://vuejs.org/api/built-in-directives#v-if) for example:
+
+```html
+<div v-if="shouldSee">Now you see me</div>
+```
+
+The `<p>` element is removed or inserted based on the value of the expression `shouldSee`.
+
+## Arguments
+
+Some directives can take an _argument_. For example, `v-bind` can take an argument to specify which attribute to bind to:
+
+```html
+<!-- bind to href attribute -->
+<a v-bind:href="url">...</a>
+
+<!-- shorthand -->
+<a :href="url">...</a>
+```
+
+In this example, `href` is the argument. The directive will bind the value of `url` to the `href` attribute of the `<a>` element.
+
+Another example, `v-on`, which listen to DOM events:
+
+```html
+<!-- listen to click event -->
+<button v-on:click="doSomething">Click me</button>
+
+<!-- shorthand -->
+<button @click="doSomething">Click me</button>
+```
+
+In this example, `click` is the argument. The directive will listen for the `click` event on the `<button>` element and call the `doSomething` method when the event occurs.
+
+### Dynamic Arguments
+
+We can use expression in a directive atgument by wrapping it in square brackets:
+
+```html
+<a v-bind:[attributeName]="url"> ... </a>
+
+<!-- shorthand -->
+<a :[attributeName]="url"> ... </a>
+```
+
+In this example, the value of `attributeName` will be evaluated and used as the argument for the `v-bind` directive. So if `attributeName` is `"href"`, the directive will bind the value of `url` to the `href` attribute of the `<a>` element. Equivalent to `v-bind:href`.
+
+Events name also can be dynamic:
+
+```html
+<button v-on:[eventName]="doSomething">Click me</button>
+
+<!-- shorthand -->
+<button @[eventName]="doSomething">Click me</button>
+```
+
+In this example, the value of `eventName` will be evaluated and used as the argument for the `v-on` directive. So if `eventName` is `"click"`, the directive will listen for the `click` event on the `<button>` element and call the `doSomething` method when the event occurs. Equivalent to `v-on:click`.
+
+:::info
+Dynamic arguments must be a string or `null`. `null` is used to explicitly remove the attribute or event.
+:::
+
+#### Syntax Constraints
+
+There are some constrains on the argument expression, no spaces and quotes are allowed. For example, the following is invalid:
+
+```html
+<a :['foo' + bar]="value"> ... </a>
+```
+
+The above example is invalid because the argument expression contains quotes and spaces. The correct way to write it would be:
+
+```html
+<a :[fooBar]="value"> ... </a>
+```
+
+Where `fooBar` is a [computed property](./computed.mdx) that evaluates to the desired string.
+
+## Modifiers
+
+Postfixes denoted by a dot, indicates that a directive should be bound in some special way. For example, `.prevent` modifier on `v-on` will call `event.preventDefault()` on the triggered event:
+
+```html
+<!-- prevent default on click event -->
+<a v-on:click.prevent="doSomething"> ... </a>
+<!-- shorthand -->
+<a @click.prevent="doSomething"> ... </a>
+```
+
+more modifiers for [`v-on`](https://vuejs.org/guide/essentials/event-handling#event-modifiers) and [`v-model`](https://vuejs.org/guide/essentials/forms#modifiers).
+
+### Full Directive Syntax
+
+![Directive Syntax](/img/vue/directives/directive.png)

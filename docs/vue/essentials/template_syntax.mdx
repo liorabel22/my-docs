@@ -1,0 +1,170 @@
+---
+id: template-syntax
+title: Template Syntax
+pagination_label: title
+sidebar_label: Template Syntax
+sidebar_position: 5
+sidebar_class_name: template-syntax-sidebar
+sidebar_key: template-syntax-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - template
+  - syntax
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Vue's template syntax, which allows you to declaratively bind the rendered DOM to the underlying Vue instance's data. Vue's template syntax is a powerful and intuitive way to create dynamic and reactive user interfaces. It includes features like directives, interpolation, and event handling that make it easy to build complex applications with ease.
+tags:
+  - template
+  - syntax
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 07/04/2026
+  author: Lior Abel
+---
+
+## Template Syntax Overview
+
+Vue uses an HTML-based template syntax. The templates are syntactically valid HTML that can be parsed by spec-compliant browsers and HTML parsers.
+
+Under the hood, Vue compiles the templates into JavaScript code. Combined with the reactivity system, Vue re-renders and makes minimal DOM manipulations.
+
+## Text Interpolation
+
+Using double curly braces, `{{ }}`, also called "mustache".
+Interprets as plain text.
+
+```html
+<span>Message: {{ message }}</span>
+```
+
+The value of the `message` property will replace the `{{ message }}`. Also, if `message` is a reactive property, the displayed message will update whenever `message` changes.
+
+## Raw HTML
+
+In order to output raw HTML, we need to use the `v-html` [directive](https://vuejs.org/api/built-in-directives#v-html):
+
+```html
+<p>Using text interpolation: {{ rawHtml }}</p>
+<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+```
+
+<pre>
+    <p>{`Using text interpolation: <span style="color: red">This should be red.</span>`}</p>
+    <p>Using v-html directive: <span style={{ color: 'red' }}>This should be red.</span></p>
+</pre>
+
+## Directives
+
+[Directives](./directives.mdx) are prefixed with `v-`.
+Apply reactive behavior to the rendered DOM. They tell Vue to perform specific actions on an element, such as binding data, handling events, or manipulating its structure.
+
+## Attribute Bindings
+
+To bind an element's attribute to a dynamic value, we can use the `v-bind` [directive](https://vuejs.org/api/built-in-directives#v-bind). The shorthand for `v-bind` is a colon (`:`).
+
+```html
+<!-- Using v-bind -->
+<a v-bind:href="url">Link</a>
+<!-- Using shorthand -->
+<a :href="url">Link</a>
+```
+
+The `v-bind` directive keeps the element's attribute in sync with the Vue instance's data. Whenever the value of `url` changes, the `href` attribute of the `<a>` element will automatically update to reflect the new value.
+
+:::info
+If the bound value is `null` or `undefined`, the attribute will be removed from the element.
+:::
+
+import { VersionBanner } from '@site/src/components/VersionBanner'
+
+### Same-name Shorthand <VersionBanner version="3.4+" />
+
+If the attribute has the same name as the variable name:
+
+```html
+<!-- same as :id="id" -->
+<div :id></div>
+
+<!-- this also works -->
+ <div v-bind:id></div>
+```
+
+### Boolean Attributes
+
+[Boolean attributes](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes) indicates true / false by their presence on an element.
+
+```html
+<button :disabled="isButtonDisabled">Button</button>
+```
+
+The `disabled` attribute will be included if `isButtonDisabled` has a [truthy value](https://developer.mozilla.org/en-US/docs/Glossary/Truthy). An empty string will also consider as true, maintaining consistency with `<button disabled="">`. For other [falsy values](https://developer.mozilla.org/en-US/docs/Glossary/Falsy), the `disabled` attribute will be omitted.
+
+### Multiple Attributes
+
+If we have an object that contains multiple attributes:
+
+```js
+const objAttributes = {
+  id: 'foo',
+  disabled: true,
+}
+```
+
+We can bind them to an element using `v-bind` with the object syntax:
+
+```html
+<button v-bind="objAttributes">Button</button>
+```
+
+## Using Expressions in Templates
+
+We can use expressions in templates. An expression is a JavaScript-like code snippet that evaluates to a value (if it can be used after `return`, it is an expression). We can use expressions in text interpolations and directives.
+
+```html
+<div>
+  <p>{{ number + 1 }}</p>
+  <p>{{ ok ? 'YES' : 'NO' }}</p>
+  <p>{{ message.split('').reverse().join('') }}</p>
+  <p :id="'foo-' + id">Hello</p>
+  <p :id=`bar-${id}`>Hello</p>
+</div>
+```
+
+It is also possible to call a method:
+
+```html
+<time :title="toTitleDate(date)" :datetime="date">
+  {{ formatDate(date) }}
+</time>
+```
+
+:::important
+Functions called inside binding expressions will be called every time the component updates, so they should not have any side effects, such as changing data or triggering asynchronous operations.
+:::
+
+### Restricted Globals Access
+
+We can access a limited set of globals, [here is the full list](https://github.com/vuejs/core/blob/main/packages/shared/src/globalsAllowList.ts#L3), We can define additional globals by adding them to `app.config.globalProperties`:
+
+```js
+const app = Vue.createApp({ /* ... */ })
+app.config.globalProperties.$filters = {
+  capitalize(value) {
+    if (!value) return ''
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  },
+}
+```
+Then we can use the filter in our templates:
+
+```html
+<p>{{ $filters.capitalize(message) }}</p>
+```
+
