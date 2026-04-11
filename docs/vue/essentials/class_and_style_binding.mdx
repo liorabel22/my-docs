@@ -1,0 +1,259 @@
+---
+id: class-and-style-binding
+title: Class and Style Binding
+pagination_label: title
+sidebar_label: Class and Style Binding
+sidebar_position: 7 
+sidebar_class_name: class-and-style-binding-sidebar
+sidebar_key: class-and-style-binding-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - template
+  - syntax
+  - class
+  - style
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Vue's class and style binding, which allows you to dynamically apply CSS classes and inline styles to elements based on the component's state. This feature is a core part of Vue's template syntax and enables you to create responsive and interactive user interfaces with ease.
+tags:
+  - template
+  - syntax
+  - class
+  - style
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 08/04/2026
+  author: Lior Abel
+---
+
+## Class Binding
+
+### Binding to Object
+
+We can pass an object to `:class`
+
+```html
+<div :class="{ active: isActive }"></div>
+```
+
+The above syntax means, if `isActive` is `true`, the `active` class will be applied to the `<div>`.
+
+We can have multiple classes, also `:class` directive can c-exist with the plain `class` attribute.
+
+Given following state:
+
+```js
+const isActive = ref(true)
+const hasError = ref(false)
+```
+
+```html
+<div
+  class="static"
+  :class="{ active: isActive, 'text-danger': hasError }">
+</div>
+```
+
+It will render:
+
+```html
+<div class="static active"></div>
+```
+
+When the `isActive` or `hasError` state changes, the class list will be updated accordingly.
+
+The bound object can also be a computed property or any reactive object.
+
+```js
+const isActive = ref(true)
+const error = ref(null)
+
+const classObject = computed(() => ({
+  active: isActive.value && !error.value,
+  'text-danger': error.value && error.value.type === 'fatal'
+}))
+```
+
+or
+
+```js
+const classObject = reactive({
+  active: isActive.value,
+  'text-danger': hasError.value
+})
+```
+
+```html
+<div :class="classObject"></div>
+```
+
+### Binding to Array
+
+We can also pass an array to `:class`:
+
+```js
+const activeClass = ref('active')
+const errorClass = ref('text-danger')
+```
+
+```html
+<div :class="[activeClass, errorClass]"></div>
+```
+
+Which will render:
+
+```html
+<div class="active text-danger"></div>
+```
+
+We can toggle classes conditionaly:
+
+```html
+<div :class="[isActive ? activeClass : '', errorClass]"></div>
+```
+
+This will always apply `errorClass`, but only apply `activeClass` when `isActive` is `true`.
+
+We can use object syntax in array as well:
+
+```html
+<div :class="[{ [activeClass]: isActive }, errorClass]"></div>
+```
+
+### Binding to Component
+
+#### Single Root Element
+Component with single root element will get the class bindings applied to that root element.
+For example if we have a `MyComponent` component with the following template:
+
+```html
+<template>
+  <div class="my-component">
+    <!-- component content -->
+  </div>
+</template>
+```
+
+Add some classes when using the component:
+
+```html
+<MyComponent class="active touch"/>
+```
+
+The rendered HTML will be:
+
+```html
+<div class="my-component active touch">
+  <!-- component content -->
+</div>
+```
+
+#### Multiple Root Elements
+
+When a component has multiple root elements, we should define which element should receive the class bindings using `$attrs`.
+
+`MyComponent` template:
+
+```html
+<template>
+  <div class="my-component" v-bind="$attrs">
+    <!-- component content -->
+  </div>
+  <div class="another-element">
+    <!-- another element content -->
+  </div>
+</template>
+```
+
+Using the component:
+
+```html
+<MyComponent class="active touch"/>
+```
+
+The rendered HTML will be:
+
+```html
+<div class="my-component active touch">
+  <!-- component content -->
+</div>
+<div class="another-element">
+  <!-- another element content -->
+</div>
+```
+
+## Inline Style Binding
+
+We can use `:style` to bind [inline styles](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style) to an element, just like [`:class`](#class-binding).
+
+### Binding to Object
+
+```js
+const activeColor = ref('red')
+const fontSize = ref(14)
+```
+
+```html
+<div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+```
+
+We can also use kebab-case for CSS properties:
+
+```html
+<div :style="{ color: activeColor, 'font-size': fontSize + 'px' }"></div>
+```
+
+Also use computed properties or reactive objects.
+
+Coexist with static styles:
+
+```html
+<div style="margin-top: 10px" :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+``` 
+
+### Binding to Array
+
+```html
+<div :style="[baseStyles, overridingStyles]"></div>
+```
+
+Where `baseStyles` and `overridingStyles` are objects containing CSS properties and values. The styles in `overridingStyles` will take precedence over those in `baseStyles` if there are any conflicts.
+
+### Vendor Prefixes
+
+When using inline styles, Vue will automatically add [vendor prefixes](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix) to CSS properties that require them. For example, if you use the `transform` property, Vue will add the necessary prefixes for different browsers:
+
+```html
+<div :style="{ transform: 'rotate(45deg)' }"></div>
+```
+
+This will result in the following styles being applied to the element:
+
+```css
+transform: rotate(45deg);
+-webkit-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-o-transform: rotate(45deg);
+```
+
+#### Multiple Values
+
+We can provide an array of multiple (prefixed) values for a single property:
+
+```html
+<div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+```
+
+It will only render the last value in the array which browser supports. In this case, it will render:
+
+```html
+<div style="display: flex;"></div>
+```

@@ -1,0 +1,100 @@
+---
+id: conditional-rendering
+title: Conditional Rendering
+pagination_label: title
+sidebar_label: Conditional Rendering
+sidebar_position: 7 
+sidebar_class_name: conditional-rendering-sidebar
+sidebar_key: conditional-rendering-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - template
+  - syntax
+  - conditional rendering
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Vue's conditional rendering, which allows you to dynamically display or hide elements based on the component's state. This feature is a core part of Vue's template syntax and enables you to create responsive and interactive user interfaces with ease.
+tags:
+  - template
+  - syntax
+  - conditional rendering
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 11/04/2026
+  author: Lior Abel
+---
+
+## `v-if`
+
+Conditionally render a block. The block will only be rendered if the directive’s expression returns a truthy value.
+
+```html
+<div v-if="ok">Now you see me</div>
+```
+
+## `v-elsse`
+
+The `v-else` directive is used to indicate an "else block" for `v-if`. It must immediately follow a `v-if` or a `v-else-if` element, and it will be rendered if the preceding `v-if` or `v-else-if` condition evaluates to false.
+
+```html
+<div v-if="ok">Now you see me</div>
+<div v-else>Now you don't</div>
+```
+
+## `v-else-if`
+
+The `v-else-if` directive is used to indicate an "else if block" for `v-if`. It must immediately follow a `v-if` or another `v-else-if` element, and it will be rendered if the preceding `v-if` or `v-else-if` condition evaluates to false and its own condition evaluates to true.
+
+```html
+<div v-if="type === 'A'">A</div>
+<div v-else-if="type === 'B'">B</div>
+<div v-else-if="type === 'C'">C</div>
+<div v-else>Not A, B, or C</div>
+```
+
+## `v-if` on `<template>`
+
+`v-if` has to be attached to a single element. If we want to apply it to multiple elemetns, we can wrap them in a `<template>` element. The `<template>` element itself will not be rendered in the DOM.
+
+```html
+<template v-if="ok">
+  <h1>Title</h1>
+  <p>Paragraph</p>
+</template>
+```
+
+`v-else` and `v-else-if` can also be used on `<template>` elements in the same way.
+
+## `v-show`
+
+Toggles the `display` CSS property of the element, which means the element always remain in the DOM.
+
+Can't be used on `<template>` elements because they are not rendered as real DOM elements.
+
+```html
+<div v-show="ok">Now you see me</div>
+```
+
+## `v-if` vs `v-show`
+
+`v-if` is real conditional rendering, it destroy and re-create the element.
+`v-if` is lazy, if the condition is false on initial render, it will not render the conditional block.
+
+`v-show` is simpler, the element is always rendered.
+
+In genreal, `v-if` has higher toggle cost, `v-show` has higher initial render costs. Prefer `v-show` if needs to toggle often, and prefer `v-if` if the condition is unlikely to change in runtime.
+
+## `v-if` with `v-for`
+
+When `v-if` and `v-for` exist on the same element, `v-if` has a higher priority than `v-for`. So the `v-if` condition is evaluated first, if it returns false, the `v-for` loop will not be run at all.
+
+:::danger[Tip]
+It is not recommended to use `v-if` and `v-for` on same element, due to implicit precedence. If you want to use both, it's better to wrap the `v-for` element with a `<template>` element and apply `v-if` on it. Or you can move the `v-if` condition into the `v-for` loop by using a computed property or a method. (The second approach is more flexible, but may have performance implications if the list is large.) For more info refer to [list rendering](./list_rendering.mdx#v-for-with-v-if).
+:::
