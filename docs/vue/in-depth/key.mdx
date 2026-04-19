@@ -1,0 +1,135 @@
+---
+id: key
+title: key
+pagination_label: title
+sidebar_label: Key
+sidebar_position: 1
+sidebar_class_name: key-sidebar
+sidebar_key: key-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - template
+  - syntax
+  - list rendering
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Vue's `key` attribute, which is used to uniquely identify elements in a list rendering. This feature is a core part of Vue's template syntax and enables you to create efficient and performant list rendering in your applications.
+tags:
+  - template
+  - syntax
+  - list rendering
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 11/04/2026
+  author: Lior Abel
+---
+
+## `key`
+
+Vue uses an "in-place patch" as default strategy for reusing and patching existing elements. It tries to keep existing DOM elements where they are, then updates each one based on the new item at that position.
+
+```js
+items = [
+  { id: 1, name: 'A' },
+  { id: 2, name: 'B' }
+]
+```
+
+```html
+<input value="A">
+<input value="B">
+```
+
+Now suppose we shuffle the items:
+
+```js
+items = [
+  { id: 2, name: 'B' },
+  { id: 1, name: 'A' }
+]
+```
+
+The first `<input>` will be patched to show "B" and the second one will be patched to show "A". This is not ideal because the user might have entered some text in the first input, and it would be lost when it gets patched.
+
+That can lead to confusing behavior with:
+- typed input values
+- focus state
+- component local state
+- checkbox state
+
+In order to track each node's identity, and thus reuse and reorder existing elements, you need to provide a unique `key` attribute for each item.
+`key` must be unique among siblings, but they don't need to be globally unique. Their value can be a `string`,  a `number` or a `symbol`.
+
+```html
+<div v-for="item in items" :key="item.id">
+  {{ item.name }}
+</div>
+```
+
+Where using `v-for` on `<template>` the `key` attribute should placed on the `<template>` container.
+
+```html
+<template v-for="todo in todos" :key="todo.name">
+  <li>{{ todo.name }}</li>
+</template>
+```
+
+We should use `key` with `v-for` whenever possible, especially:
+- `<input>` elements
+- `<textarea>` elements
+- `<select>` elements
+- child components
+- animated / transitioned elements
+- dynamic lists that can reorder
+- inserted / removed items
+
+We might skip `key` when:
+- the content is very simple
+- there is no component state
+- there is no form / input state
+- you do not care about preserving DOM identity
+- you intentionally want to reuse and patch existing elements
+
+Example for simpale case:
+
+```html
+<li v-for="n in 5">{{ n }}</li>
+```
+
+### index as `key` value
+
+Using the index as `key` is not recommended.
+
+```html
+<li v-for="(item, index) in items" :key="index">
+  {{ item.name }}
+</li>
+```
+
+This can lead to problems when:
+- items are reordered
+- items are inserted or removed
+- the list is filtered
+
+In these cases, the index will not reflect the identity of the item, and it can cause unexpected behavior.
+
+### Force Replacement
+
+We can put `key` attribute on a component or elements, so we can tell Vue:
+- Treat it as a new one whenever the key changes.
+- Do not reuse this element / component, by never changing the `key` value.
+
+```html
+<transition>
+  <span :key="text">{{ text }}</span>
+</transition>
+```
+
+Whenever `text` changes, the old `<span>` will be removed and a new one will be inserted, thus triggering the transition effect. If it was a component the full lifecycle hooks would be triggered.

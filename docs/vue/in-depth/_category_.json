@@ -1,0 +1,10 @@
+{
+  "label": "In-Depth",
+  "position": 9,
+  "collapsible": true,
+  "collapsed": false,
+  "className": "vue-upscaling",
+  "link": {
+    "type": "generated-index"
+  }
+}

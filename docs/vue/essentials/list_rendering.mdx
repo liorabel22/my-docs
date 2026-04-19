@@ -1,0 +1,202 @@
+---
+id: list-rendering
+title: List Rendering
+pagination_label: title
+sidebar_label: List Rendering
+sidebar_position: 8 
+sidebar_class_name: list-rendering-sidebar
+sidebar_key: list-rendering-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - template
+  - syntax
+  - list rendering
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Vue's list rendering, which allows you to dynamically render lists of items based on the component's state. This feature is a core part of Vue's template syntax and enables you to create responsive and interactive user interfaces with ease.
+tags:
+  - template
+  - syntax
+  - list rendering
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 18/04/2026
+  author: Lior Abel
+---
+
+## `v-for` with an Array
+
+The `v-for` directive is used to render a list of items based on an array similar to JavaScript's `forEach` method. It requires a special syntax in the form of `item in items`, where `items` is the array, and `item` is an alias for the array element being iterated on. `v-for` also supports an optional second argument for the index of the `item` in the array.
+
+```js
+const parentMessage = ref('Parent')
+const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
+```
+
+```html
+<li v-for="(item, index) in items">
+  {{ parentMessage }} - {{ index }} - {{ item.message }}
+</li>
+```
+
+Result:
+* Parent - 0 - Foo
+* Parent - 1 - Bar
+
+We can destructure the item object in the `v-for` directive as well:
+
+```html
+<li v-for="{ message } in items">
+  {{ message }}
+</li>
+
+<!-- with index alias -->
+<li v-for="({ message }, index) in items">
+  {{ message }} {{ index }}
+</li>
+```
+
+We can nest `v-for`, each has access to all surrounding parent scopes.
+
+```html
+<li v-for="item in items">
+  <span v-for="childItem in item.children">
+    {{ item.message }} {{ childItem }}
+  </span>
+</li>
+```
+
+## `v-for` with an Object
+
+It is just like call `Object.values()`
+
+```js
+const myObject = reactive({
+  title: 'How to do lists in Vue',
+  author: 'Jane Doe',
+  publishedAt: '2016-04-10'
+})
+```
+
+```html
+<ul>
+  <li v-for="value in myObject">
+    {{ value }}
+  </li>
+</ul>
+```
+
+Result:
+* How to do lists in Vue
+* Jane Doe
+* 2016-04-10
+
+We can provide second and third arguments for `key` and `index` respectively.
+
+```html
+<ul>
+  <li v-for="(value, key, index) in myObject">
+    {{ index }}. {{ key }}: {{ value }}
+  </li>
+</ul>
+```
+
+## `v-for` with a Range
+
+```html
+<span v-for="n in 10">{{ n }}</span>
+```
+
+Result:
+* 12345678910
+
+`n` starts from `1` instead of `0`.
+
+## `v-for` on `<template>`
+The `v-for` directive can also be used on a `<template>` element, which allows you to render multiple elements without introducing an extra wrapper element in the DOM.
+
+```html
+<ul>
+  <template v-for="item in items">
+    <li>{{ item.msg }}</li>
+    <li class="divider" role="presentation"></li>
+  </template>
+</ul>
+```
+
+## `v-for` with `v-if`
+
+When `v-for` and `v-if` exist on the same element, `v-if` has a higher priority than `v-for`. It means that the `v-if` condition will not have access to variables from the scope if the `v-for`
+
+```html
+<!--
+This will throw an error because property "todo"
+is not defined on instance.
+-->
+<li v-for="todo in todos" v-if="!todo.isComplete">
+  {{ todo.name }}
+</li>
+```
+
+:::note
+It's not recommended to use `v-if` and `v-for` on the same element due to implicit precedence.
+
+There are two common cases where this can be tempting:
+
+- To filter items in a list (e.g. `v-for="user in users" v-if="user.isActive"`). In these cases, replace `users` with a new computed property that returns your filtered list (e.g. `activeUsers`).
+
+- To avoid rendering a list if it should be hidden (e.g. `v-for="user in users" v-if="shouldShowUsers"`). In these cases, move the `v-if` to a container element (e.g. `ul`, `ol`).
+:::
+
+## `key`
+
+The full idea of `key` is explained in the [dedicated section](../in-depth/key.mdx#key) in the In-Depth part of the documentation.
+
+Use `key` to give each item a stable identity in a list.
+
+```html
+<li v-for="item in items" :key="item.id">
+  {{ item.name }}
+</li>
+```
+
+Rules:
+- `key` should be unique among siblings
+- use it when items can reorder, be added, or be removed
+- use it with inputs, child components, and transitions
+- on `<template v-for>`, place the `key` on the `<template>` tag
+
+Avoid using the array index as the key, because it does not represent the item's real identity when the list changes.
+
+```html
+<li v-for="(item, index) in items" :key="index">
+  {{ item.name }}
+</li>
+```
+
+You can also use `key` to force Vue to recreate an element or component.
+
+```html
+<transition>
+  <span :key="text">{{ text }}</span>
+</transition>
+```
+
+## `v-for` with a Component
+
+```html
+<MyComponent
+  v-for="(item, index) in items"
+  :item="item"
+  :index="index"
+  :key="item.id"
+/>
+```
+

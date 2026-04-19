@@ -96,5 +96,5 @@ In genreal, `v-if` has higher toggle cost, `v-show` has higher initial render co
 When `v-if` and `v-for` exist on the same element, `v-if` has a higher priority than `v-for`. So the `v-if` condition is evaluated first, if it returns false, the `v-for` loop will not be run at all.
 
 :::danger[Tip]
-It is not recommended to use `v-if` and `v-for` on same element, due to implicit precedence. If you want to use both, it's better to wrap the `v-for` element with a `<template>` element and apply `v-if` on it. Or you can move the `v-if` condition into the `v-for` loop by using a computed property or a method. (The second approach is more flexible, but may have performance implications if the list is large.) For more info refer to [list rendering](./list_rendering.mdx#v-for-with-v-if).
+It is not recommended to use `v-if` and `v-for` on same element, due to implicit precedence. If you want to use both, it's better to wrap the `v-for` element with a `<template>` element and apply `v-if` on it. Or you can move the `v-if` condition into the `v-for` loop by using a computed property or a method. (The second approach is more flexible, but may have performance implications if the list is large.) For more info refer to [list rendering](./list_rendering.mdx#v-for-with-v-if ).
 :::
