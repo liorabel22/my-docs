@@ -1,0 +1,96 @@
+---
+id: getting-started
+title: Getting Started with C
+pagination_label: title
+sidebar_label: Getting Started with C
+sidebar_position: 1
+sidebar_class_name: getting-started-sidebar
+sidebar_key: getting-started-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - first c program
+  - c programming
+  - c language
+  - compiler
+  - linker
+description: Learn about the basics of C programming, including how to write your first C program, compile it, and run it. This guide will help you get started with C programming and understand the fundamental concepts of the language.
+tags:
+  - first c program
+  - c programming
+  - c language
+  - compiler
+  - linker
+last_updated:
+  date: 10/07/2026
+  author: Lior Abel
+---
+
+## Intro
+
+C is a high-level programming language, which means that it is designed to be easy for humans to read and write, in compare with low-level programming languages, which are closer to machine code ([binary](/docs/c/keywords.mdx#binary), or [assembly language](/docs/c/keywords.mdx#assembly)).
+
+![language-spectrum](/img/c/essentials/language-spectrum.png)
+
+In order to translate the high level code into machine code we need a [compiler](/docs/c/keywords.mdx#compiler) or [interpreter](/docs/c/keywords.mdx#interpreter).
+
+Different machines may need different [compilers](/docs/c/keywords.mdx#compiler) or [interpreters](/docs/c/keywords.mdx#interpreter), for example, a Windows machine may need a different compiler than a Linux machine.
+
+## A Simple C Program
+
+```c title="simple_code.c" showLineNumbers
+/* simple_code.c: This is my first C program */
+#include <stdio.h>
+
+int main() {
+    printf("Howdy, neighbor! This is my first C program.\n");
+    return 0;
+}
+```
+
+The file name is `simple_code.c`, and the `.c` extension indicates that this is a C [source file](/docs/c/keywords.mdx#source-code). We can compile this file using a C [compiler](/docs/c/keywords.mdx#compiler), such as `gcc`, to create an [executable program](/docs/c/keywords.mdx#executable-program).
+
+The first line of the program is a comment, which is ignored by the [compiler](/docs/c/keywords.mdx#compiler). Comments are used to explain the code and make it easier to understand. `\*` indicates the start of a multi-line comment, and `*/` indicates the end of the comment. In this case, the comment is a single line, but it could be multiple lines e.g.
+
+```c
+/*
+  This is a multi-line comment
+  that spans multiple lines
+*/
+```
+
+The second line of the program is a [preprocessor directive](/docs/c/keywords.mdx#directive) (`#include`), which tells the [compiler](/docs/c/keywords.mdx#compiler) to include the contents of the `stdio.h` header file.
+
+:::info[`stdio.h` Header File]
+The `stdio.h` (standard input-output) [header file](/docs/c/keywords.mdx#header-file) contains [declarations](/docs/c/keywords.mdx#declaration) for input and output functions, such as `printf()`.
+:::
+
+:::info[Angle Brackets vs. Double Quotes]
+When including header files, we can use either angle brackets (`< >`) or double quotes (`" "`). Angle brackets ask the [preprocessor](/docs/c/keywords.mdx#preprocessor) to look for the header file in the standard system directories, while double quotes ask it to look in the current directory first.
+:::
+
+In line 4, we define the `main()` function, which is the entry point of the program. Every C program must have a `main()` function, which is where the program starts executing. The `int` before `main()` indicates that the function returns an integer value, which is used to indicate the success or failure of the program.
+
+We can see the semicolon on lines 5,6. The semicolon is used to terminate [statements](/docs/c/keywords.mdx#statement) in C. Each [statement](/docs/c/keywords.mdx#statement) must end with a semicolon, which tells the [compiler](/docs/c/keywords.mdx#compiler) that the [statement](/docs/c/keywords.mdx#statement) is complete.
+
+Lines 5,6 are also indented. Indentation is used to make the code more readable, but it is not required by the [compiler](/docs/c/keywords.mdx#compiler). The [compiler](/docs/c/keywords.mdx#compiler) ignores whitespace, including spaces, tabs, and newlines.
+
+In line 7, we return 0 from the `main()` function, which indicates that the program has completed successfully. The return value of the `main()` function is used by the operating system to determine whether the program executed successfully or encountered an error. If other values are returned, it indicates that the program encountered an error. The specific meaning of the return value can vary depending on the program and the operating system.
+
+## Compiling and Linking
+
+There are three main steps to create an executable program from a C source file:
+
+### 1. Source Code
+A program file written in C, ends with the `.c` extension.
+
+### 2. Compilation
+The [compiler](/docs/c/keywords.mdx#compiler) translates the C source code into an object file, which contains machine code that can be executed by the computer. The object file has the `.o` extension and is not yet a complete program. We can not execute an object file directly. The [compiler](/docs/c/keywords.mdx#compiler) checks the source code for syntax errors and generates an object file. If there are any errors in the source code, the [compiler](/docs/c/keywords.mdx#compiler) will display error messages and will not generate an object file.
+
+### 3. Linking
+The [linker](/docs/c/keywords.mdx#linker), is an program (usually comes with the [compiler](/docs/c/keywords.mdx#compiler)) that combines the object file with any necessary libraries to create an executable program. The executable program can be run on the computer. The [linker](/docs/c/keywords.mdx#linker) resolves any references between the object file and the libraries, such as function calls and variable accesses. If there are any missing references, the [linker](/docs/c/keywords.mdx#linker) will display error messages and will not generate an executable program.
+
+![compilation-linking](/img/c/essentials/compiler_and_linker.png)

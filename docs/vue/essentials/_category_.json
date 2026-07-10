@@ -2,7 +2,7 @@
   "label": "Essentials",
   "position": 1,
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "vue-essentials",
   "link": {
     "type": "generated-index"

@@ -2,7 +2,7 @@
   "label": "Upscaling",
   "position": 5,
   "collapsible": true,
-  "collapsed": false,
+  "collapsed": true,
   "className": "vue-upscaling",
   "link": {
     "type": "generated-index"

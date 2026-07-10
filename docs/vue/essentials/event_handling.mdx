@@ -1,0 +1,118 @@
+---
+id: event-handling
+title: Event Handling
+pagination_label: title
+sidebar_label: Event Handling
+sidebar_position: 9
+sidebar_class_name: event-handling-sidebar
+sidebar_key: event-handling-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - event handling
+  - event
+  - vue
+  - vue 3
+  - vue3
+description: Learn about Vue's event handling, which allows you to respond to user interactions and other events in your application. This feature is a core part of Vue's template syntax and enables you to create interactive and dynamic user interfaces with ease.
+tags:
+  - event handling
+  - event
+  - vue
+  - vue 3
+  - vue3
+last_updated:
+  date: 19/04/2026
+  author: Lior Abel
+---
+
+In order to listen to events and run some code when they’re triggered, you can use the `v-on` directive. It has a shorthand `@` that you can use instead. We use it `v-on:click="handler"` or `@click="handler"`.
+
+## Inline Handlers
+
+```html
+<button @click="count++">Add 1</button>
+<button @click="foo()">Add 1</button>
+```
+
+### Event Argument
+
+In an inline handler, you have to explicitly use `$event` to access the native DOM event object:
+
+```js
+function warn(message, event) {
+  // now we have access to the native event
+  if (event) {
+    event.preventDefault()
+  }
+  alert(message)
+}
+```
+
+```html
+<!-- using $event special variable -->
+<button @click="warn('Form cannot be submitted yet.', $event)">
+  Submit
+</button>
+```
+
+## Method Handlers
+
+A property name or path that points to a method defined on the component.
+
+```js
+const name = ref('Vue.js')
+
+function greet(event) {
+  alert(`Hello ${name.value}!`)
+  // `event` is the native DOM event
+  if (event) {
+    alert(event.target.tagName)
+  }
+}
+```
+
+```html
+<!-- `greet` is the name of the method defined above -->
+<button @click="greet">Greet</button>
+<!-- other examples for method handlers -->
+<button @click="foo">Add 1</button>
+<button @click="foo.bar">Add 2</button>
+<button @click="foo['bar']">Add 3</button>
+```
+
+### Event Argument
+
+A method handler receives the native DOM event object automatically, as in the example above.
+
+## Event Modifiers
+
+A shortcut for `event.preventDefault()` in `doSomething` handler would be `@click.prevent="doSomething"`.
+
+- `.stop` - calls `event.stopPropagation()`
+- `.prevent` - calls `event.preventDefault()`
+- `.capture` - adds the event listener in capture mode
+- `.self` - triggers the handler only if the event was dispatched from the element itself, not from a child element
+- `.once` - triggers the handler at most once
+- `.passive` - indicates that the handler will not call `preventDefault()`, allowing the browser to optimize scrolling performance.
+
+```html
+<!-- the click event's propagation will be stopped -->
+<a @click.stop="doThis"></a>
+
+<!-- the submit event will no longer reload the page -->
+<form @submit.prevent="onSubmit"></form>
+
+<!-- modifiers can be chained -->
+<a @click.stop.prevent="doThat"></a>
+
+<!-- just the modifier -->
+<form @submit.prevent></form>
+
+<!-- only trigger handler if event.target is the element itself -->
+<!-- i.e. not from a child element -->
+<div @click.self="doThat">...</div>
+```

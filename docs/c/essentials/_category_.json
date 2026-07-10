@@ -1,9 +1,9 @@
 {
-  "label": "Vue Documentations",
+  "label": "Essentials",
   "position": 1,
   "collapsible": true,
-  "collapsed": true,
-  "className": "vue",
+  "collapsed": false,
+  "className": "c-language-essentials",
   "link": {
     "type": "generated-index"
   }

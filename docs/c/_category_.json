@@ -1,0 +1,10 @@
+{
+  "label": "C Language",
+  "position": 2,
+  "collapsible": true,
+  "collapsed": false,
+  "className": "c-language-docs",
+  "link": {
+    "type": "generated-index"
+  }
+}
