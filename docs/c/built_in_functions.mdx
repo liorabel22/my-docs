@@ -1,0 +1,85 @@
+---
+id: c-built-in-functions
+title: Built-in Functions
+pagination_label: title
+sidebar_label: C Built-in Functions
+sidebar_position: 1001
+sidebar_class_name: c-built-in-functions-sidebar
+sidebar_key: c-built-in-functions-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - c built-in functions
+  - built-in function
+  - built-in functions
+description: Put all C built-in functions here.
+tags:
+  - c built-in functions
+last_updated:
+  date: 12/07/2026
+  author: Lior Abel
+---
+
+## Standard Input and Output (I/O)
+
+### `fclose`
+
+The `fclose` function is used to close an opened file. It is part of the C standard library and is declared in the [`stdio.h`](/docs/c/built_in_headers.mdx#stdioh) header file.
+
+#### Syntax
+```c
+int fclose(FILE *stream);
+```
+
+#### Parameters
+- `stream`: A pointer to a `FILE` object that identifies the stream to be closed.
+
+#### Example
+```c
+#include <stdio.h>
+
+int main() {
+    FILE *file = fopen("example.txt", "r");
+    if (file != NULL) {
+        fclose(file);
+    }
+    return 0;
+}
+```
+
+### `printf`
+
+The `printf` function is used to output formatted text to the standard output (usually the terminal). It allows you to print variables, strings, and other data types in a specified format. The function is part of the C standard library and is declared in the [`stdio.h`](/docs/c/built_in_headers.mdx#stdioh) header file.
+
+#### Syntax
+```c
+int printf(const char *format, ...);
+```
+
+#### Parameters
+- `format`: A string that contains text to be printed and format specifiers that determine how the subsequent arguments are formatted.
+- `...`: A variable number of arguments that are formatted and printed according to the format specifiers.
+
+#### Example
+```c
+#include <stdio.h>
+
+int main() {
+    int number = 42;
+    printf("The number is %d\n", number);
+    return 0;
+}
+```
+
+#### Format Specifiers
+- `%d` or `%i`: Integer
+- `%f`: Floating-point number
+- `%c`: Character
+- `%s`: String
+- `%p`: Pointer
+- `%%`: Literal `%` character
+
+The `printf` function returns the number of characters printed (excluding the null byte used to end output to strings).

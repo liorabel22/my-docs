@@ -1,0 +1,191 @@
+---
+id: operators-and-control-flow
+title: Operators and Control Flow
+pagination_label: title
+sidebar_label: Operators and Control Flow
+sidebar_position: 2
+sidebar_class_name: operators-and-control-flow-sidebar
+sidebar_key: operators-and-control-flow-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - c
+  - c programming
+  - basics
+  - operators
+description: Learn the basics of C programming, including operators and control flow.
+tags:
+  - basics
+  - operators
+last_updated:
+  date: 14/07/2026
+  author: Lior Abel
+---
+
+## Operators
+
+Operators are like verbs in programming. They perform operations on variables and values. C has a rich set of operators, which can be categorized as follows:
+- Arithmetic Operators: Used for basic mathematical operations like addition, subtraction, multiplication, and division.
+- Unary Operators: Operate on a single operand to produce a new value, such as incrementing or negating a value.
+- Increment and Decrement Operators: Used to increase or decrease the value of a variable by one.
+- Relational Operators: Compare two values and return a boolean result (true or false).
+- Cast Operator: Used to convert a variable from one type to another.
+
+### Arithmetic Assignment Operators
+
+The `=` is called _assignment operator_ and.
+
+The general form of an assignment statement is:
+
+```c
+left-hand-operand = right-hand-operand;
+```
+
+The value of the `right-hand-operand` is assigned (or written) to the memory location of the `left-hand-operand`. After the assignment, the value of the `left-hand-operand` is the same as the value of the `right-hand-operand`.
+
+`a = 5;` writes the value of the `right-hand-operand` (`5`) into the memory location of the `int` variable `a`. After the assignment, the value of `a` is `5`.
+
+`b = a = 5;` is equivalent to `a = 5; b = a;`. The value of the `right-hand-operand` (`5`) is assigned to the memory location of the `int` variable `a`, and then the value of `a` (`5`) is assigned to the memory location of the `int` variable `b`. After the assignment, both `a` and `b` have the value of `5`.
+
+The value on the left must be some form of variable that can receive data from the expression on the right. `6 = a;` is invalid because `6` is a constant and cannot receive data. The left-hand side of an assignment must be a variable, not a constant.
+
+#### Combine Arithmetics Operators with `=`
+
+Lets take a look at the following example: Given two integers `x` and `y`, how do you assign the addition of `x` and `y` back to `x`? You can do it like this:
+
+```c
+x = x + y;
+```
+
+But C provides a shorthand for this operation, which is:
+
+```c
+x += y; // This is equivalent to x = x + y;
+```
+
+This is works for all arithmetic operators:
+
+| **Operator** | **Shorthand** | **Equivalent Expression** |
+|--------------|---------------|---------------------------|
+| `+=` | `x += y` | `x = x + y` |
+| `-=` | `x -= y` | `x = x - y` |
+| `*=` | `x *= y` | `x = x * y` |
+| `/=` | `x /= y` | `x = x / y` |
+| `%=` | `x %= y` | `x = x % y` |
+
+:::warning
+```c
+z = z * x + y;
+```
+
+is not equivalent to:
+
+```c
+z *= x + y;
+```
+
+it is equivalent to:
+
+```c
+z = z * (x + y);
+```
+:::
+
+### Unary Minus Operator
+
+We can use the unary `-` operator, right before the number, to change the sign of a number. This operator can be on any integer or floating-point number. For example, `-5` is the negative of `5`, and `-3.14` is the negative of `3.14`. The unary minus operator can also be used to negate a variable, such as `-x`, which negates the value of `x`.
+
+### Increment and Decrement Operators
+
+Very handy to add or subtract `1` from a variable are the increment (`++`) and decrement (`--`) operators. Instead of writing `x = x + 1;` or `x = x - 1;`, you can use these operators `++x` or `--x`. These operators can be used in two forms: prefix and postfix.
+
+- **Prefix**: The operator is placed before the variable. For example, `++x` increments the value of `x` by `1` and returns the new value of `x`. Similarly, `--x` decrements the value of `x` by `1` and returns the new value of `x`.
+
+- **Postfix**: The operator is placed after the variable. For example, `x++` increments the value of `x` by `1` but returns the old value of `x`. Similarly, `x--` decrements the value of `x` by `1` but returns the old value of `x`. For example `y = x++;` assigns the old value of `x` to `y`, and then increments `x` by `1`.
+
+```c
+#include <stdio.h>
+
+main()
+{
+    int w, x, y, z, result;
+
+    w = x = y = z = 1;
+
+    result = ++w;
+    printf("++w evaluates to %d and w is now %d\n", result, w);
+    result = x++;
+    printf("x++ evaluates to %d and x is now %d\n", result, x);
+    result = --y;
+    printf("--y evaluates to %d and y is now %d\n", result, y);
+    result = z--;
+    printf("z-- evaluates to %d and z is now %d\n", result, z);
+    return 0;
+}
+```
+
+Output:
+
+```
+++w evaluates to 2 and w is now 2
+x++ evaluates to 1 and x is now 2
+--y evaluates to 0 and y is now 0
+z-- evaluates to 1 and z is now 0
+```
+
+### Relational Operators
+
+Relational operators are used to compare two values. They return `1` (true) if the comparison is true, and `0` (false) if the comparison is false. The relational operators in C are:
+
+| **Operator** | **Description** |
+|--------------|----------------|
+| `==` | Equal to |
+| `!=` | Not equal to |
+| `>` | Greater than |
+| `<` | Less than |
+| `>=` | Greater than or equal to |
+| `<=` | Less than or equal to |
+
+Their precedence is lower than that of arithmetic operators, but higher than that of logical operators. For example, `x + y > z` is evaluated as `(x + y) > z`, not `x + (y > z)`.
+
+Among the relational operators, the `>, <, >=, <=` operators have higher precedence than the `==` and `!=` operators. For example, `x == y > z` is evaluated as `x == (y > z)`, not `(x == y) > z`.
+
+Relational expressions evaluate to `1` (true) or `0` (false). For example, the expression `x > y` evaluates to `1` if `x` is greater than `y`, and `0` otherwise. Similarly, the expression `x == y` evaluates to `1` if `x` is equal to `y`, and `0` otherwise.
+
+### Cast Operator
+
+We can convert the data type of a variable, expression or constant to another data type using the cast operator. The cast operator is a unary operator that is placed before the variable, expression or constant to be converted. The conversion does not change the operand itself, but rather creates a new value of the specified type
+
+The syntax for the cast operator is:
+
+```c
+(type) expression
+```
+
+Where `type` is the data type to which we want to convert the expression, and `expression` is the value or variable to be converted. For example, `(float) x` converts the integer variable `x` to a floating-point value.
+
+```c
+#include <stdio.h>
+
+main()
+{
+    int x, y;
+
+    x = 7;
+    y = 5;
+
+    printf("x / y = %d\n", x / y);
+    printf("(float) x / y = %f\n", (float) x / y);
+    return 0;
+}
+```
+
+Output:
+
+```
+x / y = 1
+(float) x / y = 1.400000
+```

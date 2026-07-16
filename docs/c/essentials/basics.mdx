@@ -36,3 +36,731 @@ last_updated:
   date: 10/07/2026
   author: Lior Abel
 ---
+
+## Intro
+
+The basic elements of C programming include [constants](/docs/c/keywords.mdx#constant), [variables](/docs/c/keywords.mdx#variable), [expressions](/docs/c/keywords.mdx#expression), [statements](/docs/c/keywords.mdx#statement), [statement blocks](/docs/c/keywords.mdx#statement-block), [functions](/docs/c/keywords.mdx#function), and [function calls](/docs/c/keywords.mdx#function-call). Understanding these concepts is essential for writing simple programs in C.
+
+## Constants and Variables
+
+[Constants](/docs/c/keywords.mdx#constant) are fixed values that do not change, [variables](/docs/c/keywords.mdx#variable) can be used to present different values.
+
+```c
+i = 5;
+```
+
+The symbol `5` is constant, it always has the same value. The symbol `i` is assigned to the const `5`.
+
+```c
+i = 2;
+```
+
+Now `i` is assigned to the const `2`. `i` can contain different values, so it is a variable.
+
+## Expressions
+
+Combination of [constants](/docs/c/keywords.mdx#constant), [variables](/docs/c/keywords.mdx#variable), and [operators](/docs/c/keywords.mdx#operator).
+
+```c
+4 * (2 + 3)
+```
+
+This is an expression that adds `2` and `3`, then multiplies the result by `4`. The result of this expression is `20`.
+
+| **Expression** | **Description** |
+|----------------|----------------|
+| `6` | An expression of a [constant](/docs/c/keywords.mdx#constant) |
+| `i` | An expression of a [variable](/docs/c/keywords.mdx#variable) |
+| `6 + i` | An expression of a [constant](/docs/c/keywords.mdx#constant) and a [variable](/docs/c/keywords.mdx#variable) |
+| `exit(0)` | An expression of a [function call](/docs/c/keywords.mdx#function-call) |
+
+## Operators
+
+Operators are symbols that perform operations on [operands](/docs/c/keywords.mdx#operand). In C, operators can be classified into several categories based on the number of operands they take and the type of operation they perform.
+
+## Identifiers
+
+[Expressions](/docs/c/keywords.mdx#expression) can  contain words (function names, variable names, reserved keywords, etc.) that are called identifiers.
+
+Those are valid characters for identifiers:
+- Letters (a-z, A-Z)
+- Digits (0-9) - but not as the first character
+- Underscores (_)
+
+## Statements
+
+Complete instruction that ends with semicolon `;`. [Expression](/docs/c/keywords.mdx#expression) that ends with semicolon `;` is a [statement](/docs/c/keywords.mdx#statement).
+
+```c
+i = 5;
+```
+
+### Statement Blocks
+
+Group of [statements](/docs/c/keywords.mdx#statement) that are enclosed in curly braces `{}`. A statement block is treated as a single [statement](/docs/c/keywords.mdx#statement) by the [compiler](/docs/c/keywords.mdx#compiler).
+
+```c
+while (true){
+  i = 5;
+  j = 6;
+}
+```
+
+## Functions
+
+Functions are blocks of code that perform a specific task. They can be called from other parts of the program to execute their code.
+
+Functions consists of six parts: [function type](basics.mdx#function-type), [function name](basics.mdx#function-name), [arguments](basics.mdx#arguments), [open brace](basics.mdx#open-and-close-braces), [function body](basics.mdx#function-body), [close brace](basics.mdx#open-and-close-braces).
+
+![Function parts](/img/c/essentials/function_structure.png)
+
+### Function Type
+
+The [type](/docs/c/keywords.mdx#type) that the function returns. If the function does not return a value, its type is `void`.
+
+Function that return [values](/docs/c/keywords.mdx#value) can be used in an expression:
+
+```c
+int a = func();
+a = func() + 5;
+```
+
+### Function Name
+
+Must follow the rules of [identifiers](basics.mdx#identifiers). The name should imply the purpose of the function. For example, a function that calculates the sum of two numbers could be named `sum`. Can't use names that are already used by [keywords](/docs/c/keywords.mdx#keyword) or [standard library functions](/docs/c/keywords.mdx#standard-library-function).
+
+### Arguments
+
+[Arguments](/docs/c/keywords.mdx#argument) are the values that are passed to a [function](/docs/c/keywords.mdx#function) when it is called. They allow the function to receive input and perform operations based on that input. More than one argument can be passed to a function, and they are typically separated by commas. The number and types of arguments must match the function's definition. If no arguments are needed, the function can be defined with an empty parameter list.
+
+### Open and Close Braces
+
+Marks the beginning and end of the [function body](basics.mdx#function-body).
+
+### Function Body
+
+Where [statements](/docs/c/keywords.mdx#statement) are written to perform the task of the function. The function body can contain [variable declarations](/docs/c/keywords.mdx#variable), [control flow statements](/docs/c/keywords.mdx#control-flow-statement), and other [expressions](/docs/c/keywords.mdx#expression) that define the behavior of the function.
+
+:::warning[Variable declaration]
+Variable declarations must be placed at the beginning of the function body, before any executable statements.
+:::
+
+```c
+int sum(int a, int b)
+{
+  int result; /* Variable declaration */
+  result = a + b; /* Executable statement */
+  return result; /* Return statement */
+}
+```
+
+### Function Call
+
+Here is an example of a [function call](/docs/c/keywords.mdx#function-call):
+
+```c
+int result = sum(5, 10);
+```
+
+## C Keywords
+
+There are reserved words with special meaning, called keywords. We should not use keywords for our own [variables](/docs/c/keywords.mdx#variable), [constants](/docs/c/keywords.mdx#constant), or [function names](/docs/c/keywords.mdx#function-name). Here is a list of all 32 keywords:
+
+| **Keyword** | **Description** |
+|-------------|----------------|
+| `auto` | Storage class specifier - Automatic storage class |
+| `break` | Jump statement - Exit a loop or switch statement |
+| `case` | Label statement - Label for a switch statement |
+| `char` | Type specifier - Character type |
+| `const` | Storage class modifier - Constant value |
+| `continue` | Jump statement - Skip to the next iteration of a loop |
+| `default` | Label - Default label for a switch statement |
+| `do` | Loop statement - Do-while loop |
+| `double` | Type specifier - Double precision floating point type |
+| `else` | Conditional statement - Alternative branch of an if statement |
+| `enum` | Type specifier - Enumeration type |
+| `extern` | Storage class specifier - External storage class |
+| `float` | Type specifier - Single precision floating point type |
+| `for` | Loop statement - For loop |
+| `goto` | Jump statement - Go to a label in the code |
+| `if` | Conditional statement - If statement |
+| `int` | Type specifier - Integer type |
+| `long` | Type specifier - Long integer type |
+| `register` | Storage class specifier - Register storage class |
+| `return` | Function statement - Return from a function |
+| `short` | Type specifier - Short integer type |
+| `signed` | Type specifier - Signed integer type |
+| `sizeof` | Operator - Size of an object |
+| `static` | Storage class specifier - Static storage class |
+| `struct` | Type specifier - Structure type |
+| `switch` | Conditional statement - Switch statement |
+| `typedef` | Statement - Type definition |
+| `union` | Type specifier - Union type |
+| `unsigned` | Type specifier - Unsigned integer type |
+| `void` | Type specifier - No return value |
+| `volatile` | Storage class modifier - Volatile storage class |
+| `while` | Loop statement - While loop |
+
+
+## Data Types
+
+### `char`
+
+Represent a single character. Computer can only store numeric code, therefore, characters such as `A, a, B, b` and so on, all have a unique numeric code.
+
+Usually `char` takes 8 bits (1 byte).
+
+#### Character Variable
+
+We can declare a `char` data type in the following ways:
+
+```c
+char variable_name;
+
+/* more than one variable declaration */
+char variable_name1;
+char variable_name2;
+char variable_name3;
+
+/* another way is */
+char variable_name1, variable_name2, variable_name3;
+
+/* declare and set */
+char character1 = 'A';
+
+/* also */
+char x, y, z;
+x = 'A';
+y = 'g';
+z = '3';
+```
+
+:::warning[Character vs. Number]
+the las assignment `z = '3'`, sets `z` to the numeric value that represent the character `'3'`, not to the actual number `3`.
+:::
+
+#### Character Constants
+
+A character enclosed in single quotes (`'`) is called [character constant](/docs/c/keywords.mdx#character-constant). For example, `'A'`, `'g'`, and `'3'` are character constants. [Character constants](/docs/c/keywords.mdx#character-constant) always be with single quotes, while [string](/docs/c/keywords.mdx#string), or more than one character uses double quotes (`"`). For example, `"Hello"` is a [string](/docs/c/keywords.mdx#string).
+
+From the [ASCII table](/docs/c/keywords.mdx#ascii-table), we can see that the character `'A'` has a numeric value of `65`, and the character `'g'` has a numeric value of `103`. Therefore, when we assign `z = '3'`, we are actually assigning the numeric value `51` to `z`, which is the ASCII code for the character `'3'`.
+
+Those are equivalent:
+
+```c
+char z = '3';
+char z = 51; /* ASCII code for '3' */
+```
+
+#### The Escape Character
+
+An escape character is a special character used to represent certain non-printable or special characters in a string or character constant. In C, the backslash (`\`) is used as the escape character. Some common escape sequences include:
+
+- `\b` : Backspace (move the cursor one position back)
+- `\f` : Form feed (move the cursor to the beginning of the next page)
+- `\n` : Newline (move the cursor to the beginning of the next line)
+- `\r` : Carriage return (move the cursor to the beginning of the current line)
+- `\t` : Horizontal tab (move the cursor to the next tab stop)
+- `\\` : Backslash (print a backslash character)
+- `\'` : Single quote (print a single quote character)
+- `\"` : Double quote (print a double quote character)
+
+#### Printing Characters
+
+To print a character in C, we use the `printf` function with the `%c` format specifier. For example:
+
+```c
+char character = 'A';
+char character2 = 103; /* ASCII code for 'g' */
+printf("The character is: %c\n", character);
+printf("The ASCII value of the character is: %d\n", character);
+printf("The character with the ASCII value %d is: %c\n", character2, character2);
+```
+
+Output:
+```
+The character is: A
+The ASCII value of the character is: 65
+The character with the ASCII value 103 is: g
+```
+
+### `int`
+
+Integer data type is used to represent whole numbers, which has no fractional part. In C, the `int` data type typically takes 4 bytes (32 bits) of memory, allowing it to store values in the range of $-2,147,483,648$ ($-2^{31}$) to $2,147,483,647$ ($2^{31}-1$) for [signed integers](/docs/c/keywords.mdx#signed-integer). [Unsigned integers](/docs/c/keywords.mdx#unsigned-integer) can store values from $0$ to $4,294,967,295$ ($2^{32}-1$).
+
+#### Integer Division
+
+When performing division with integers in C, the result will also be an integer. This means that any fractional part of the result will be truncated (not rounded). For example:
+
+```c
+int a = 7;
+int b = 2;
+int result = a / b; // result will be 3, not 3.5
+```
+
+#### Declaring Integer Variables
+
+```c
+int number1;
+int number2;
+int number3;
+
+/* another way is */
+int number1, number2, number3;
+
+/* declare and set */
+int number = 10;
+
+/* also */
+int a, b, c;
+a = 5;
+b = 15;
+c = 20;
+```
+
+#### Printing Integers
+
+To print an integer in C, we use the `printf` function with the `%d` format specifier. For example:
+
+```c
+int number = 10;
+printf("The number is: %d\n", number);
+```
+
+Output:
+```
+The number is: 10
+```
+
+### `float`
+
+The `float` data type is used to represent single-precision floating-point numbers, which can store decimal values. In C, the `float` data type typically takes 4 bytes (32 bits) of memory and can represent values in the range of approximately $1.2 \times 10^{-38}$ to $3.4 \times 10^{38}$. 
+
+A floating-point number can be suffixed with `f` or `F` to indicate that it is a float literal. For example, `3.14f` is a float literal, while `3.14` is treated as a `double` literal by default.
+
+#### Float Division
+
+When performing division with floating-point numbers in C, the result will also be a floating-point number. For example:
+`43.2 / 10.0` produces another floating-point number, so do `43.2 / 10` and `43 / 10.0`. But `43 / 10` produces an integer, because both operands are integers.
+
+```c
+int int_num1, int_num2, int_num3; /* Declare integer variables */
+float flt_num1, flt_num2, flt_num3; /* Declare floating-point variables */
+
+int_num1 = 32 / 10; /* Both divisor and dividend are integers */
+flt_num1 = 32 / 10; /* Both divisor and dividend are integers */
+int_num2 = 32.0 / 10; /* Dividend is a float */
+flt_num2 = 32.0 / 10; /* Dividend is a float */
+int_num3 = 32 / 10.0; /* Divisor is a float */
+flt_num3 = 32 / 10.0; /* Divisor is a float */
+
+printf("The integer quotient of 32/10 is: %d\n", int_num1);
+printf("The float quotient of 32/10 is: %f\n", flt_num1);
+printf("The integer quotient of 32.0/10 is: %d\n", int_num2);
+printf("The float quotient of 32.0/10 is: %f\n", flt_num2);
+printf("The integer quotient of 32/10.0 is: %d\n", int_num3);
+printf("The float quotient of 32/10.0 is: %f\n", flt_num3);
+```
+
+Output:
+```
+The integer quotient of 32/10 is: 3
+The float quotient of 32/10 is: 3.000000
+The integer quotient of 32.0/10 is: 3
+The float quotient of 32.0/10 is: 3.200000
+The integer quotient of 32/10.0 is: 3
+The float quotient of 32/10.0 is: 3.200000
+```
+
+#### Declaring Float Variables
+
+```c
+float number1;
+float number2;
+float number3;
+
+/* another way is */
+float number1, number2, number3;
+
+/* declare and set */
+float number = 3.14f;
+
+/* also */
+float a, b, c;
+a = 1.5f;
+b = -2.5F;
+c = 3.5;
+```
+
+#### Printing Floats
+
+To print a float in C, we use the `printf` function with the `%f` format specifier. For example:
+
+```c
+float number = 3.14f;
+printf("The float number is: %f\n", number);
+```
+
+Output:
+```
+The float number is: 3.140000
+```
+
+### `double`
+
+The `double` data type is used to represent double-precision floating-point numbers, which can store decimal values with greater precision than `float`. In C, the `double` data type typically takes 8 bytes (64 bits) of memory and can represent values in the range of approximately $2.3 \times 10^{-308}$ to $1.7 \times 10^{308}$.
+
+#### Declaring Double Variables
+
+```c
+double number1;
+double number2;
+double number3;
+
+/* another way is */
+double number1, number2, number3;
+
+/* declare and set */
+double number = 3.141592653589793;
+
+/* also */
+double a, b, c;
+a = 1.23456789;
+b = -2.34567890;
+c = 3.45678901;
+```
+
+#### Printing Doubles
+To print a double in C, we use the `printf` function with the `%lf` format specifier. For example:
+
+```c
+double number = 3.141592653589793;
+printf("The double number is: %lf\n", number);
+```
+
+#### Scientific Notation
+
+In C, you can also represent floating-point numbers using scientific notation (also known as exponential notation). This is useful for very large or very small numbers. The format is `mantissa e exponent`, where `e` or `E` indicates the power of 10. For example:
+
+```c
+double number1 = 5e3; // 5 * 10^3 (5000)
+double number2 = -3e2; // -3 * 10^2 (-300)
+double number3 = 2.5e-3; // 2.5 * 10^-3 (0.0025)
+
+
+printf("number1: %lf\n", number1);
+printf("number2: %lf\n", number2);
+printf("number3: %lf\n", number3);
+```
+
+
+Output:
+```
+number1: 5000.000000
+number2: -300.000000
+number3: 0.002500
+```
+
+## Standard Input and Output (I/O)
+
+We will elaborate on the `printf` function, which is used for output, and we look at some functions to get input from the user, such as `getc`, `putc`, `getchar`, and `putchar`.
+
+### About Standard I/O
+
+Files contains related characters and numbers, which are all represented as bits in the computer. C language treats files as a sequence of bytes, sequence of bytes also called a [stream](/docs/c/keywords.mdx#stream).
+
+In C there are three standard streams that are automatically opened when a program starts (always available for use in a program):
+
+| **Stream** | **Description** |
+|------------|----------------|
+| `stdin` | Standard input for reading - used for reading input from the user (usually the keyboard) |
+| `stdout` | Standard output for writing - used for writing output to the user (usually the terminal) |
+| `stderr` | Standard error for writing error messages - used for writing error messages to the user (usually the terminal) |
+
+We already used _stdout_ when we called the `printf` function.
+
+### Getting Input from the User
+
+The C language has several functions to tell the computer to read input from user. For now we will focus on the [`getc`](/docs/c/built_in_functions.mdx#getc) and [`getchar`](/docs/c/built_in_functions.mdx#getchar) functions.
+
+#### `getc`
+
+Reads the next character from a file stream, and returns the character as an integer value.
+
+```c
+#include <stdio.h>
+
+int getc(FILE *stream);
+```
+
+`FILE *stream` declares a file stream (a variable).
+The function return the numeric value of the character read.
+If an end-of-file or error occurs, the function returns `EOF` (a constant defined in `stdio.h` with value of `-1`).
+
+##### Example
+
+```c
+#include <stdio.h>
+
+int main() {
+    int ch;
+
+    printf("Enter a character:\r\n");
+    ch = getc(stdin); // Read a character from the input stream
+    printf("You entered: %c\n", ch); // Print the character read
+    return 0;
+}
+```
+
+Output:
+```
+Enter a character:
+A
+You entered: A
+```
+
+#### `getchar`
+
+Reads the next character from the standard input stream (`stdin`), and returns the character as an integer value. It's like [`getc`](/docs/c/built_in_functions.mdx#getc) but without the need to specify the input stream (`getc(stdin)`).
+
+```c
+#include <stdio.h>
+
+int getchar(void);
+```
+
+`void` indicates that the function does not take any arguments. The function returns the numeric value of the character read. If an end-of-file or error occurs, the function returns `EOF`.
+
+##### Example
+
+```c
+#include <stdio.h>
+
+int main() {
+    int ch1, ch2;
+
+    printf("Enter two characters:\r\n");
+    ch1 = getc(stdin); // Read a character from the standard input
+    ch2 = getchar(); // Read another character from the standard input
+    printf("The first character: %c\n", ch1); // Print the character read
+    printf("The second character: %c\n", ch2); // Print the character read
+    return 0;
+}
+```
+
+Output:
+```
+Enter two characters:
+By
+The first character: B
+The second character: y
+```
+
+### Print Output on the Screen
+
+Now we will discuss the [`putc`](/docs/c/built_in_functions.mdx#putc) and [`putchar`](/docs/c/built_in_functions.mdx#putchar) functions, which are used to write output to the user.
+
+#### `putc`
+
+Writes a character to a file stream. It takes two arguments: the character to be written and the file stream to which the character should be written.
+
+```c
+#include <stdio.h>
+int putc(int c, FILE *stream);
+```
+
+The first argument `int c` is the character to be written, and the second argument `FILE *stream` is the file stream to which the character should be written. The function returns the character written as an unsigned char cast to an int or `EOF` on error.
+
+##### Example
+
+```c
+#include <stdio.h>
+
+int main() {
+    int ch;
+
+    ch = 65; // ASCII code for 'A'
+    printf(“The character that has numeric value of 65 is:\n”);
+    putc(ch, stdout); // Write the character to the standard output stream
+    return 0;
+}
+```
+
+Output:
+```
+The character that has numeric value of 65 is:
+A
+```
+
+#### `putchar`
+
+Writes a character to the standard output stream (`stdout`). It's like [`putc`](/docs/c/built_in_functions.mdx#putc) but without the need to specify the output stream (`putc(ch, stdout)`).
+
+```c
+#include <stdio.h>
+int putchar(int c);
+```
+
+Here `int c` is the character to be written. The function returns the character written as an unsigned char cast to an int or `EOF` on error.
+
+##### Example
+
+```c
+#include <stdio.h>
+
+int main() {
+    int ch;
+
+    putchar(65); // Write the character 'A' to the standard output stream
+    putchar(10); // Write a newline character to the standard output stream
+    putchar(66); // Write the character 'B' to the standard output stream
+    putchar(10); // Write a newline character to the standard output stream
+    putchar(67); // Write the character 'C' to the standard output stream
+    putchar(10); // Write a newline character to the standard output stream
+
+    return 0;
+}
+```
+
+Output:
+```
+A
+B
+C
+```
+
+## `printf` Function
+
+The `printf` function is used to print formatted output to the standard output stream (`stdout`). It allows you to display text, variables, and formatted data in a specific way.
+
+```c
+#include <stdio.h>
+int printf(const char *format, ...);
+```
+
+Here, `const char *format` is a string that specifies how to format the output, and the ellipsis (`...`) indicates that the function can take a variable number of arguments.
+Returns the total number of characters written, or a negative value if an error occurs.
+
+The order of the arguments passed to `printf` must match the order of the format specifiers in the format string. Each format specifier corresponds to a specific type of data that you want to print.
+
+![printf specifiers order](/img/c/essentials/printf_order.png)
+
+### Format Specifiers List
+
+| **Specifier** | **Description** |
+|---------------|----------------|
+| `%c` | Character |
+| `%d` | Signed decimal integer |
+| `%i` | Signed decimal integer (same as `%d`) |
+| `%f` | Decimal floating-point number |
+| `%e` | Scientific notation (mantissa/exponent) with lowercase 'e' |
+| `%E` | Scientific notation (mantissa/exponent) with uppercase 'E' |
+| `%g` | Use the shorter of `%e` or `%f` |
+| `%G` | Use the shorter of `%E` or `%f` |
+| `%o` | Unsigned octal |
+| `%s` | String of characters |
+| `%u` | Unsigned decimal integer |
+| `%x` | Unsigned hexadecimal integer (lowercase) |
+| `%X` | Unsigned hexadecimal integer (uppercase) |
+| `%p` | Pointer address |
+| `%n` | Number of characters written so far |
+| `%%` | A literal '%' character |
+
+### Minimum Field Width
+
+We can add integer between `%` and the letter of the format specifier to specify the _minimum field width_. The _minimum field width specifier_ ensures that the output occupies at least the specified number of characters. If the value to be printed is shorter than the specified width, it will be padded with spaces (by default) to meet the width requirement.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+
+    num1 = 12;
+    num2 = 12345;
+
+    printf("%d\n", num1);
+    printf("%d\n", num2);
+    printf("%5d\n", num1); // Minimum field width of 5
+    printf("%05d\n", num1); // Minimum field width of 5 with leading zeros
+    printf("%2d\n", num2); // Minimum field width of 2 (no effect since num2 has more than 2 digits)
+
+    return 0;
+}
+```
+
+Output:
+```
+12
+12345
+   12
+00012
+12345
+```
+
+### Alignment
+
+By default, the output is right-aligned within the specified field width. However, we can use a negative sign (`-`) before the field width to left-align the output.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int num1, num2, num3, num4, num5;
+
+    num1 = 1;
+    num2 = 12;
+    num3 = 123;
+    num4 = 1234;
+    num5 = 12345;
+
+    printf(“%8d %-8d\n”, num1, num1);
+    printf(“%8d %-8d\n”, num2, num2);
+    printf(“%8d %-8d\n”, num3, num3);
+    printf(“%8d %-8d\n”, num4, num4);
+    printf(“%8d %-8d\n”, num5, num5);
+
+    return 0;
+}
+```
+
+Output:
+```
+       1 1       
+      12 12      
+     123 123     
+    1234 1234    
+   12345 12345   
+```
+
+### Precision Specifier
+
+The precision specifier is used to control the number of digits displayed after the decimal point for floating-point numbers. It is specified by placing a dot (`.`) followed by an integer between the `%` and the format specifier letter. The precision specifier can also be used with strings to limit the number of characters printed.
+
+```c
+#include <stdio.h>
+
+int main() {
+    float num1, num2, num3;
+
+    num1 = 123;
+    num2 = 123.456789;
+
+    printf(“Default integer format:   %d\n”, int_num);
+    printf(“With precision specifier: %2.8d\n”, int_num);
+    printf(“Default float format:     %f\n”, flt_num);
+    printf(“With precision specifier: %-10.2f\n”, flt_num);
+    printf(“With precision specifier: %.3f\n”, flt_num);
+
+    return 0;
+}
+```
+
+Output:
+```
+Default integer format:   123
+With precision specifier: 00000123
+Default float format:     123.456789
+With precision specifier: 123.46
+With precision specifier: 123.457
+```
