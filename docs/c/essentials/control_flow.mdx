@@ -1,0 +1,356 @@
+---
+id: control_flow
+title: Control Flow
+pagination_label: title
+sidebar_label: Control Flow
+sidebar_position: 6
+sidebar_class_name: control-flow-sidebar
+sidebar_key: control-flow-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - c
+  - c programming
+  - if
+  - else
+  - switch
+  - case
+  - break
+  - continue
+  - goto
+description: Learn the basics of C programming, including control flow.
+tags:
+  - control flow
+  - loops
+last_updated:
+  date: 19/07/2026
+  author: Lior Abel
+---
+
+## `if` Statement
+
+A conditional branching statement that allows you to execute a block of code only if a specified condition is true. The syntax for an `if` statement is as follows:
+
+```c
+if (expression) {
+    // Code to be executed if the expression is true
+}
+```
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i;
+
+    printf("Integers that can be divided by both 2 and 3\n");
+    printf("(within the range of 0 to 100):\n");
+    for (i = 0; i <= 100; i++){
+      if ((i % 2 == 0) && (i % 3 == 0)) {
+        printf("%d\n", i);
+      }
+    }
+
+    return 0;
+}
+```
+
+Output:
+
+```
+Integers that can be divided by both 2 and 3
+(within the range of 0 to 100):
+ 0
+ 6
+ 12
+ 18
+ 24
+ 30
+ 36
+ 42
+ 48
+ 54
+ 60
+ 66
+ 72
+ 78
+ 84
+ 90
+ 96
+```
+
+## `if-else` and `else if` Statement
+
+A conditional branching statement that allows you to execute one block of code if a specified condition is true, and another block of code if the condition is false. The syntax for an `if-else` statement is as follows:
+
+```c
+if (expression1) {
+    // Code to be executed if the expression is true
+} else if (expression2) {
+    // Code to be executed if the expression2 is true
+} else {
+    // Code to be executed if both expression1 and expression2 are false
+}
+```
+
+If expression1 evaluates to true, the code block inside the `if` statement is executed. If it evaluates to false, the code block inside the `else if` statement is executed (if expression2 is true) or the `else` statement is executed (if both expression1 and expression2 are false).
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i;
+
+    printf("Even Number Odd Number\n");
+    for (i = 0; i < 10; i++){
+      if (i % 2 == 0) {
+        printf("%d", i);
+      } else {
+        printf("%14d\n", i);
+      }
+    }
+
+    return 0;
+}
+```
+
+Output:
+
+```
+Even Number Odd Number
+0             1
+2             3
+4             5
+6             7
+8             9
+```
+
+## `break` Statement
+
+A control flow statement that allows you to exit a loop or switch statement prematurely. The `break` statement is used to terminate the current loop or switch statement and transfer control to the next statement following the loop or switch.
+
+Here is how we start infinite `for` loop:
+
+```c
+for (;;) {
+    // Code to be executed indefinitely
+}
+```
+
+And this is how we run infinite `while` loop:
+
+```c
+while (1) {
+    // Code to be executed indefinitely
+}
+
+// or
+
+while (true) {
+    // Code to be executed indefinitely
+}
+```
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int c;
+
+    printf("Enter a character:\n(enter x to exit)\n");
+    while (1) {
+        c = getc(stdin);
+        if (c == 'x') {
+            break;
+        }
+        printf("You entered: %c\n", c);
+    }
+    printf("Exiting the loop.\n");
+
+    return 0;
+}
+```
+
+Output:
+
+```
+Enter a character:
+(enter x to exit)
+You entered: a
+You entered: b
+You entered: c
+You entered: x
+Exiting the loop.
+```
+
+## `continue` Statement
+
+A control flow statement that allows you to skip the current iteration of a loop and move on to the next iteration. The `continue` statement is used to skip the remaining code in the current iteration and proceed to the next iteration of the loop.
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 0; i < 10; i++) {
+        if (i % 2 == 0) {
+            continue;
+        }
+        printf("%d\n", i);
+    }
+    return 0;
+}
+```
+
+Output:
+
+```
+1
+3
+5
+7
+9
+```
+
+## `switch` Statement
+
+A conditional branching statement that allows you to execute one block of code out of many based on the value of an expression. The syntax for a `switch` statement is as follows:
+
+```c
+switch (expression) {
+    case constant1:
+        // Code to be executed if expression equals constant1
+        break;
+    case constant2:
+        // Code to be executed if expression equals constant2
+        break;
+    // You can have any number of case statements
+    default:
+        // Code to be executed if expression doesn't match any case
+}
+```
+
+The conditional expression is evaluated first, and its value is compared with the values of each case. If a match is found, the corresponding block of code is executed. The `break` statement is used to exit the switch statement after executing a case. If no match is found, the code in the `default` case is executed.
+
+:::info[labels]
+The `case` ends with colon (`:`) and not a semicolon (`;`), this is a syntax for labels in C programming. In C, a label is used as a kind of bookmark in your code for use by the conditional branching statement. A label is not, itself, a statement; rather, it
+points to a place to jump when you want to depart from the normal top-
+down flow of execution.
+The proper syntax for a label is a unique identifier followed by a colon —
+not a semicolon . In this chapter you will see several ways to use labels, as
+well as the reserved label names case expression: and default:.
+:::
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int day;
+
+    printf("Please enter a single digit for a day\n");
+    printf("(within the range of 1 to 7):\n");
+    day = getchar();
+    switch (day) {
+        case 1:
+            printf("Sunday\n");
+            break;
+        case 2:
+            printf("Monday\n");
+            break;
+        case 3:
+            printf("Tuesday\n");
+            break;
+        case 4:
+            printf("Wednesday\n");
+            break;
+        case 5:
+            printf("Thursday\n");
+            break;
+        case 6:
+            printf("Friday\n");
+            break;
+        case 7:
+            printf("Saturday\n");
+            break;
+        default:
+            printf("Invalid input\n");
+            break;
+    }
+
+    return 0;
+}
+```
+
+Output:
+
+```
+Please enter a single digit for a day
+(within the range of 1 to 7):
+4
+Wednesday
+```
+
+## `goto` Statement
+
+:::danger[do not use]
+The `goto` statement is generally discouraged because it can make code harder to read and maintain.
+Any use of `goto` can be replaced with structured control flow statements like `if`, `for`, `while`, and `switch`. It is recommended to avoid using `goto` in your code.
+:::
+
+A control flow statement that allows you to jump to a labeled statement within the same function. The `goto` statement can be useful for breaking out of nested loops or for error handling, but its use is generally discouraged because it can make code harder to read and maintain.
+
+General syntax for a `goto` statement is as follows:
+
+```c
+labelname:
+  statement1;
+  statement2;
+  .
+  .
+  .
+  goto labelname;
+```
+
+Here `labelname` is a unique identifier that marks a specific point in the code. The `goto` statement transfers control to the labeled statement, allowing you to jump to that point in the program.
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+    
+start:
+    printf("%d\n", i);
+    i++;
+    if (i < 5) {
+        goto start;
+    }
+    
+    return 0;
+}
+```
+
+Output:
+
+```
+0
+1
+2
+3
+4
+```

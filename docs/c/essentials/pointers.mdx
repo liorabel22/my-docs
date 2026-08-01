@@ -1,0 +1,195 @@
+---
+id: pointers
+title: Pointers
+pagination_label: title
+sidebar_label: Pointers
+sidebar_position: 6
+sidebar_class_name: pointers-sidebar
+sidebar_key: pointers-key
+title: Pointers
+pagination_label: title
+sidebar_label: Pointers
+sidebar_position: 6
+sidebar_class_name: pointers-sidebar
+sidebar_key: pointers-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - c
+  - c programming
+  - pointers
+  - memory
+  - indirection
+  - address-of operator
+  - dereference operator
+description: Learn C pointers basics.
+tags:
+  - pointers
+last_updated:
+  date: 30/07/2026
+  author: Lior Abel
+---
+
+- Pointer is a variable, so we can assign different values to a pointer variable.
+- The value of a pointer variable must be an address, the address is the address of another variable.
+
+```c
+int x;
+x = 10;
+```
+
+Left value: `1000`
+Right value: `10`
+
+`1000` is the address of the variable `x`, and `10` is the value of the variable `x`, the content stored in the memory location.
+
+## Pointer Declaration
+
+Pointers are variables, which means that they have a left value and a right value. Both, left and right values are addresses. The left value is the address of the pointer variable, and the right value is the address of another variable.
+
+The general form of a pointer declaration is:
+
+```c
+data-type *pointer_name;
+```
+
+```c
+#include <stdio.h>
+
+main()
+{
+  char c, *ptr_c;
+  int x, *ptr_x;
+  float y, *ptr_y;
+
+  c = 'A';
+  x = 7;
+  y = 123.45;
+  printf("c: address=%p, content=%c\n", &c, c);
+  printf("x: address=%p, content=%d\n", &x, x);
+  printf("y: address=%p, content=%5.2f\n", &y, y);
+  ptr_c = &c;
+  printf("ptr_c: address=%p, content=%p\n", &ptr_c, ptr_c);
+  printf("*ptr_c => %c\n", *ptr_c);
+  ptr_x = &x;
+  printf("ptr_x: address=%p, content=%p\n", &ptr_x, ptr_x);
+  printf("*ptr_x => %d\n", *ptr_x);
+  ptr_y = &y;
+  printf("ptr_y: address=%p, content=%p\n", &ptr_y, ptr_y);
+  printf("*ptr_y => %5.2f\n", *ptr_y);
+  return 0;
+}
+```
+
+Output:
+
+```
+c: address=0x7ffee3b8a9af, content=A
+x: address=0x7ffee3b8a9b0, content=7
+y: address=0x7ffee3b8a9b4, content=123.45
+ptr_c: address=0x7ffee3b8a9b8, content=0x7ffee3b8a9af
+*ptr_c => A
+ptr_x: address=0x7ffee3b8a9c0, content=0x7ffee3b8a9b0
+*ptr_x => 7
+ptr_y: address=0x7ffee3b8a9c8, content=0x7ffee3b8a9b4
+*ptr_y => 123.45
+```
+
+![Memory and pointers](/img/c/essentials/memory_and_pointers.png)
+
+## Address-of operator (`&`)
+
+The address-of operator `&` is used to get the address of a variable (the left value).
+
+```c
+long int x;
+long int *y;
+y = &x;
+```
+
+This assigns the address of the variable `x` to the pointer variable `y`. Now, `y` points to `x`.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+  char c;
+  int x;
+  float y;
+
+  printf("c: address=%p, content=%c\n", &c, c);
+  printf("x: address=%p, content=%d\n", &x, x);
+  printf("y: address=%p, content=%5.2f\n", &y, y);
+  c = 'A';
+  x = 7;
+  y = 123.45;
+  printf("c: address=%p, content=%c\n", &c, c);
+  printf("x: address=%p, content=%d\n", &x, x);
+  printf("y: address=%p, content=%5.2f\n", &y, y);
+  return 0;
+}
+```
+
+Output:
+
+```
+c: address=0x7ffee3b8a9af, content=�
+x: address=0x7ffee3b8a9b0, content=0
+y: address=0x7ffee3b8a9b4, content=0.00
+c: address=0x7ffee3b8a9af, content=A
+x: address=0x7ffee3b8a9b0, content=7
+y: address=0x7ffee3b8a9b4, content=123.45
+```
+
+## Dereference operator (`*`)
+
+In C, the asterisk `*` is called the _dereference operator_ or _indirection operator_. It is used as a unary operator. By using the dereference operator, we can access the value stored in the memory location pointed to by a pointer variable.
+
+The _dereference operator_ is a unary operator, which takes only one operand. The operand contains the address of a variable.
+
+Given an integer variable `x` and `x = 1234`, we can declare a pointer variable `ptr_x` and assign the left value of `x` (address of `x`) to the right value of `ptr_x`:
+
+```c
+int x;
+int *ptr_x;
+x = 1234;
+ptr_x = &x;
+```
+
+Now the expression `*ptr_x` is equivalent to `x`, and produces the same value, `1234`.
+
+## Null pointers
+
+A pointer is _null pointer_ if the right value is 0. A null pointer will never point to a valid data.
+
+## Updating Variable via Pointers
+
+We can assign new values to a variable using pointers. Let's say we have a char variable `c` with the value of `A`, and a pointer variable `ptr_c` that points to `c`. We can change the value of `c` using the pointer `ptr_c`.
+
+```c
+*ptr_c = 'B';
+```
+
+Now, the value of `c` is `B`. The pointer `ptr_c` still points to the same address, but the content of that address has changed.
+
+## Pointing to the Same Memory Location
+
+We can have multiple pointer variables pointing to the same memory location. For example, if we have an integer variable `x` and two pointer variables `ptr1` and `ptr2`, both can point to `x`:
+
+```c
+int x = 10;
+int *ptr1 = &x; // contain the address of x
+int *ptr2 = &x; // contain the address of x
+```
+
+Now, both `*ptr1` and `*ptr2` will give the value of `x`, which is `10`. Changing the value via one pointer will reflect when accessed via the other pointer:
+
+```c
+*ptr1 = 20;
+printf("%d\n", *ptr2); // Output: 20
+printf("%d\n", x);     // Output: 20
+```

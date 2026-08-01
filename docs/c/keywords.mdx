@@ -28,16 +28,16 @@ last_updated:
 ### A
 
 ### Abstraction
-Abstraction is the practice of hiding [implementation](/docs/c/keywords.mdx#implementation) details and exposing only the essential behavior of a concept.
+Abstraction is the practice of hiding [implementation](/docs/c/keywords.mdx#implementation) details and exposing only the essential behavior of a concept. In C, [functions](/docs/c/keywords.mdx#function) and [data structures](/docs/c/keywords.mdx#data-structure) provide abstraction by letting users interact with functionality without understanding the underlying code.
 
 ### Algorithm
-An algorithm is a step-by-step procedure for solving a problem or performing a task.
+An algorithm is a step-by-step procedure for solving a problem or performing a task. Algorithms are expressed through [statements](/docs/c/keywords.mdx#statement) and [expressions](/docs/c/keywords.mdx#expression), often making use of [data structures](/docs/c/keywords.mdx#data-structure) and [control flow statements](/docs/c/keywords.mdx#control-flow-statement) for their [implementation](/docs/c/keywords.mdx#implementation).
 
 ### Argument
 An argument is a value that is passed to a [function](/docs/c/keywords.mdx#function) when it is called, allowing the function to use that value in its execution.
 
 ### Arithmetic Operation
-An arithmetic operation is a mathematical operation that can be performed on [operands](/docs/c/keywords.mdx#operand) to produce a [value](/docs/c/keywords.mdx#value). Common arithmetic operations include addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`).
+An arithmetic operation is a mathematical operation that can be performed on [operands](/docs/c/keywords.mdx#operand) using arithmetic [operators](/docs/c/keywords.mdx#operator) to produce a [value](/docs/c/keywords.mdx#value). Common arithmetic operations include addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`). These are used within [expressions](/docs/c/keywords.mdx#expression) to perform calculations.
 
 ### Array
 An array is a collection of elements stored in contiguous memory locations and accessed by index.
@@ -56,61 +56,88 @@ An attribute is a property or characteristic of a [variable](/docs/c/keywords.md
 
 ## B
 
+### Buffer
+A buffer is a memory region used to temporarily store data while it is being transferred between components, such as between a program and a file or stream.
+
 ### Binary
 Binary is a base-2 numeral system that uses only two symbols: 0 and 1.
 
 ### Bitwise Operation
-A bitwise operation is an operation that directly manipulates individual bits of [operands](/docs/c/keywords.mdx#operand) to produce a [value](/docs/c/keywords.mdx#value). Common bitwise operations include AND (`&`), OR (`|`), XOR (`^`), NOT (`~`), left shift (`<<`), and right shift (`>>`). Bitwise operations are often used in low-level programming, such as manipulating flags, performing efficient arithmetic, and working with binary data. They can also be used for tasks like setting, clearing, and toggling specific bits in a value, as well as for implementing certain algorithms that require direct manipulation of binary representations of data.
+A bitwise operation is an operation that directly manipulates individual bits of [operands](/docs/c/keywords.mdx#operand) using bitwise [operators](/docs/c/keywords.mdx#operator) to produce a [value](/docs/c/keywords.mdx#value). Common bitwise operations include AND (`&`), OR (`|`), XOR (`^`), NOT (`~`), left shift (`<<`), and right shift (`>>`). Bitwise operations are often used in low-level programming, such as manipulating flags, performing efficient arithmetic, and working with [binary](/docs/c/keywords.mdx#binary) data. They can also be used for tasks like setting, clearing, and toggling specific bits in a value, as well as for implementing certain [algorithms](/docs/c/keywords.mdx#algorithm) that require direct manipulation of binary representations of data.
 
 ### Boolean
 A boolean is a data type that can have one of two possible values: `true` or `false`.
 
 ## C
 
+### Character
+A character is a single textual symbol such as a letter, digit, punctuation mark, or whitespace.
+
 ### Character Constant
 A character constant is a single character enclosed in single quotes (`'`), representing a specific character value in a program.
 
 ### Compiler
-A compiler is a program that translates [source code](/docs/c/keywords.mdx#source-code) written in a high-level programming language into machine code.
+A compiler is a program that translates [source code](/docs/c/keywords.mdx#source-code) written in a high-level programming language into [object files](/docs/c/keywords.mdx#object-file) and eventually machine code. The [linker](/docs/c/keywords.mdx#linker) then combines object files into an [executable program](/docs/c/keywords.mdx#executable-program).
 
 ### Conditional Compilation
 Conditional compilation is a feature of some programming languages that allows the [compiler](/docs/c/keywords.mdx#compiler) to include or exclude parts of the code based on certain conditions, typically using [preprocessor directives](/docs/c/keywords.mdx#directive).
 
 ### Conditional Statement
-A conditional statement is a [statement](/docs/c/keywords.mdx#statement) that allows a program to execute different blocks of code based on whether a specified condition evaluates to true or false. In C, common conditional statements include `if`, `else if`, and `else`.
+A conditional statement is a [statement](/docs/c/keywords.mdx#statement) that allows a program to execute different blocks of code based on whether a specified [expression](/docs/c/keywords.mdx#expression) or [boolean value](/docs/c/keywords.mdx#boolean) evaluates to true or false. In C, common conditional statements include `if`, `else if`, and `else`. Conditional statements are a fundamental type of [control flow statement](/docs/c/keywords.mdx#control-flow-statement).
 
 ### Constant
 A constant is a [value](/docs/c/keywords.mdx#value) that cannot be changed during the execution of a program. In C, constants can be defined using the `const` keyword or by using [macros](/docs/c/keywords.mdx#macro) with the `#define` directive. Constants are often used to represent fixed values, such as mathematical constants (e.g., `PI`), configuration settings, or other values that should remain unchanged throughout the program. Using constants can improve code readability, maintainability, and help prevent accidental modification of important values.
 
 ### Control Flow Statement
-A control flow statement is a [statement](/docs/c/keywords.mdx#statement) that alters the order in which [statements](/docs/c/keywords.mdx#statement) are executed in a program. Control flow statements allow for decision-making, looping, and branching in the execution of code, enabling programmers to create more complex and dynamic programs. Common control flow statements in C include conditional statements (e.g., `if`, `else`), loops (e.g., `for`, `while`, `do-while`), and jump statements (e.g., `break`, `continue`, `goto`). By using control flow statements effectively, programmers can implement logic that responds to different conditions and inputs, making their programs more versatile and functional.
+A control flow statement is a [statement](/docs/c/keywords.mdx#statement) that alters the order in which [statements](/docs/c/keywords.mdx#statement) are executed in a program. Control flow statements allow for decision-making, looping, and branching in the execution of code, enabling programmers to create more complex and dynamic programs. Common control flow statements in C include [conditional statements](/docs/c/keywords.mdx#conditional-statement) (e.g., `if`, `else`), [loops](/docs/c/keywords.mdx#loop) (e.g., `for`, `while`, `do-while`), and jump statements (e.g., `break`, `continue`, `goto`). By using control flow statements effectively, programmers can implement logic that responds to different conditions and inputs, making their programs more versatile and functional.
 
 ## D
 
 ### Data Structure
-A data structure is a way of organizing and storing data in a computer so that it can be accessed and modified efficiently. Common data structures include [arrays](/docs/c/keywords.mdx#array), [linked lists](/docs/c/keywords.mdx#linked-list), [stacks](/docs/c/keywords.mdx#stack), [queues](/docs/c/keywords.mdx#queue), [trees](/docs/c/keywords.mdx#tree), and [graphs](/docs/c/keywords.mdx#graph). Each data structure has its own strengths and weaknesses, and the choice of which data structure to use depends on the specific requirements of the program and the operations that need to be performed on the data.
+A data structure is a way of organizing and storing data in a computer so that it can be accessed and modified efficiently. Common data structures include [arrays](/docs/c/keywords.mdx#array), [linked lists](/docs/c/keywords.mdx#linked-list), [stacks](/docs/c/keywords.mdx#stack), [queues](/docs/c/keywords.mdx#queue), [trees](/docs/c/keywords.mdx#tree), and [graphs](/docs/c/keywords.mdx#graph). Each data structure has its own strengths and weaknesses, and the choice of which data structure to use depends on the specific requirements of the program and the [operations](/docs/c/keywords.mdx#operator) that need to be performed on the data. Data structures are central to good [algorithm](/docs/c/keywords.mdx#algorithm) [implementation](/docs/c/keywords.mdx#implementation).
 
 ### Declaration
-A declaration is a statement that introduces a new [identifier](/docs/c/keywords.mdx#identifier) in a program, such as a [variable](/docs/c/keywords.mdx#variable), [function](/docs/c/keywords.mdx#function), or [type](/docs/c/keywords.mdx#type). Declarations specify the name and type of the [identifier](/docs/c/keywords.mdx#identifier), and may also include an initial [value](/docs/c/keywords.mdx#value) or other [attributes](/docs/c/keywords.mdx#attribute). Declarations are typically placed at the beginning of a [source file](/docs/c/keywords.mdx#source-code) or within a [function](/docs/c/keywords.mdx#function) to define the [scope](/docs/c/keywords.mdx#scope) and lifetime of the [identifier](/docs/c/keywords.mdx#identifier).
+A declaration is a [statement](/docs/c/keywords.mdx#statement) that introduces a new [identifier](/docs/c/keywords.mdx#identifier) in a program, such as a [variable](/docs/c/keywords.mdx#variable), [function](/docs/c/keywords.mdx#function), or [type](/docs/c/keywords.mdx#type). Declarations specify the name and type of the [identifier](/docs/c/keywords.mdx#identifier), and may also include an initial [value](/docs/c/keywords.mdx#value) or other [attributes](/docs/c/keywords.mdx#attribute). Declarations are typically placed at the beginning of a [source file](/docs/c/keywords.mdx#source-code) or within a [function](/docs/c/keywords.mdx#function) to define the [scope](/docs/c/keywords.mdx#scope) and lifetime of the [identifier](/docs/c/keywords.mdx#identifier).
 
 ### Directive
 A directive is a special instruction that is processed by the [preprocessor](/docs/c/keywords.mdx#preprocessor) before the code is compiled. Directives are typically used to include [header files](/docs/c/keywords.mdx#header-file), define [macros](/docs/c/keywords.mdx#macro), and control [conditional compilation](/docs/c/keywords.mdx#conditional-compilation).
 
 ## E
 
+### End-of-File (EOF)
+End-of-file (EOF) is a condition indicating that no more data can be read from a stream or file.
+
 ### Edge
 An edge is a connection between two [vertices](/docs/c/keywords.mdx#vertex) in a [graph](/docs/c/keywords.mdx#graph) data structure.
 
 ### Enumeration
-An enumeration is a user-defined data type that consists of named integer constants.
+An enumeration is a user-defined [data type](/docs/c/keywords.mdx#type) in C that consists of named integer [constants](/docs/c/keywords.mdx#constant). Enumerations are a convenient way to define a set of related [values](/docs/c/keywords.mdx#value).
 
 ### Executable Program
-An executable program is a file that can be run by the operating system to perform a specific task.
+An executable program is a file that can be run by the operating system to perform a specific task. It is typically created by a [compiler](/docs/c/keywords.mdx#compiler) and [linker](/docs/c/keywords.mdx#linker) from [source code](/docs/c/keywords.mdx#source-code) and [object files](/docs/c/keywords.mdx#object-file).
 
 ### Expression
 An expression is a combination of [variables](/docs/c/keywords.mdx#variable), [constants](/docs/c/keywords.mdx#constant), [operators](/docs/c/keywords.mdx#operator), and [function calls](/docs/c/keywords.mdx#function-call) that can be evaluated to produce a [value](/docs/c/keywords.mdx#value). Expressions can be used in [statements](/docs/c/keywords.mdx#statement) to perform calculations, make decisions, or manipulate data. In C, expressions can include [arithmetic operations](/docs/c/keywords.mdx#arithmetic-operation) (e.g., addition, subtraction), [logical operations](/docs/c/keywords.mdx#logical-operation) (e.g., AND, OR), relational operations (e.g., greater than (`>`), less than (`<`)), and [function calls](/docs/c/keywords.mdx#function-call). The result of an expression can be assigned to a [variable](/docs/c/keywords.mdx#variable), used in a [conditional statement](/docs/c/keywords.mdx#conditional-statement), or passed as an argument to a [function](/docs/c/keywords.mdx#function).
 
 ## F
+
+### File
+A file is a named collection of data stored on disk or another persistent medium.
+
+### File Handling
+File handling refers to operations such as opening, reading, writing, seeking, and closing files.
+
+### File Pointer
+A file pointer is a [pointer](/docs/c/keywords.mdx#pointer) to a `FILE` object that identifies and tracks an opened file stream.
+
+### File Position Indicator
+A file position indicator tracks the current read or write location within a file stream.
+
+### Format String
+A format string is a special [string](/docs/c/keywords.mdx#string) that controls how input is parsed or output is formatted in functions like `printf`, `scanf`, and their variants.
+
+### Format Specifier
+A format specifier is a placeholder in a format string that controls how a value is displayed or parsed.
 
 ### Function
 A function is a reusable block of code that performs a specific task and can be called from elsewhere in a program.
@@ -130,6 +157,9 @@ A header file is a file that contains [declarations](/docs/c/keywords.mdx#declar
 
 ## I
 
+### Input and Output Operation
+An input and output operation moves data into or out of a program through files, streams, or standard input and output.
+
 ### Identifier
 An identifier is a name used to identify a [variable](/docs/c/keywords.mdx#variable), [function](/docs/c/keywords.mdx#function), [type](/docs/c/keywords.mdx#type), or other [declaration](/docs/c/keywords.mdx#declaration) in a program. Identifiers must follow certain rules, such as starting with a letter or underscore, and can contain letters, digits, and underscores. Identifiers are case-sensitive, meaning that `myVariable` and `myvariable` would be considered different identifiers.
 
@@ -140,7 +170,7 @@ Implementation refers to the actual code that defines how a [function](/docs/c/k
 An inline function is a [function](/docs/c/keywords.mdx#function) that is expanded in place where it is called, rather than being invoked through a traditional [function call](/docs/c/keywords.mdx#function-call). This can improve performance by eliminating the [overhead](/docs/c/keywords.mdx#overhead) of a function call, especially for small, frequently called functions.
 
 ### Interpreter
-An interpreter is a program that directly executes instructions written in a programming or scripting language without requiring them to have been compiled into machine code.
+An interpreter is a program that directly executes instructions written in a programming or scripting language without requiring them to have been compiled into machine code. Unlike a [compiler](/docs/c/keywords.mdx#compiler), an interpreter processes [source code](/docs/c/keywords.mdx#source-code) line-by-line at runtime to produce an [executable program](/docs/c/keywords.mdx#executable-program).
 
 ## J
 
@@ -152,23 +182,29 @@ A keyword is a reserved word in a programming language that has a predefined mea
 ## L
 
 ### Linked List
-A linked list is a linear data structure where each element points to the next one.
+A linked list is a linear [data structure](/docs/c/keywords.mdx#data-structure) where each element points to the next one, allowing for dynamic memory allocation and efficient insertion and deletion operations.
 
 ### Linker
 A linker is a program that combines one or more [object files](/docs/c/keywords.mdx#object-file) generated by a [compiler](/docs/c/keywords.mdx#compiler) into a single [executable program](/docs/c/keywords.mdx#executable-program). The linker resolves references between the object files, such as function calls and variable accesses, and ensures that all necessary code and data are included in the final executable. It may also link against external libraries, allowing the program to use precompiled code provided by the library. The linking process can be static or dynamic, depending on whether the libraries are included in the executable or loaded at runtime.
 
 ### Logical Operation
-A logical operation is a type of operation that evaluates [expressions](/docs/c/keywords.mdx#expression) and returns a [boolean value](/docs/c/keywords.mdx#boolean) (true or false). Common logical operations include AND (`&&`), OR (`||`), and NOT (`!`). Logical operations are often used in [conditional statements](/docs/c/keywords.mdx#conditional-compilation) and [loops](/docs/c/keywords.mdx#loop) to control the flow of a program based on certain conditions.
+A logical operation is a type of operation that evaluates [expressions](/docs/c/keywords.mdx#expression) using logical [operators](/docs/c/keywords.mdx#operator) and returns a [boolean value](/docs/c/keywords.mdx#boolean) (true or false). Common logical operations include AND (`&&`), OR (`||`), and NOT (`!`). Logical operations are often used in [conditional statements](/docs/c/keywords.mdx#conditional-statement) and [loops](/docs/c/keywords.mdx#loop) to control the flow of a program based on certain conditions.
 
 ### Loop
-A loop is a [control flow](/docs/c/keywords.mdx#control-flow) statement that allows a block of code to be executed repeatedly based on a specified condition. In C, common types of loops include `for`, `while`, and `do-while` loops. Loops are used to perform repetitive tasks, iterate over data structures, or execute a block of code until a certain condition is met. The loop continues to execute as long as the condition evaluates to true, and it can be exited prematurely using control statements like `break` or `continue`. Proper use of loops is essential for efficient programming and can help reduce code duplication and improve maintainability.
+A loop is a [control flow statement](/docs/c/keywords.mdx#control-flow-statement) that allows a block of code to be executed repeatedly based on a specified [expression](/docs/c/keywords.mdx#expression) or condition. In C, common types of loops include `for`, `while`, and `do-while` loops. Loops are used to perform repetitive tasks, iterate over [data structures](/docs/c/keywords.mdx#data-structure), or execute a block of code until a certain condition is met. The loop continues to execute as long as the condition evaluates to true, and it can be exited prematurely using control statements like `break` or `continue`. Proper use of loops is essential for efficient programming and can help reduce code duplication and improve maintainability.
 
 ## M
+
+### Memory
+Memory is the computer storage used to hold data and instructions while a program is running.
 
 ### Macro
 A macro is a [preprocessor directive](/docs/c/keywords.mdx#directive) that defines a name for a code fragment, which can be substituted in the [source code](/docs/c/keywords.mdx#source-code) before compilation. Macros can be used to define [constants](/docs/c/keywords.mdx#constant), create [inline functions](/docs/c/keywords.mdx#inline-function), or simplify complex code patterns. They are defined using the `#define` directive and can take parameters, allowing for more flexible and reusable code. However, excessive use of macros can lead to code that is difficult to read and maintain, so they should be used judiciously.
 
 ## N
+
+### Null Character
+The null character (`\0`) is a character with value zero used to mark the end of a [string](/docs/c/keywords.mdx#string) in C.
 
 ## O
 
@@ -186,23 +222,32 @@ Overhead refers to the additional time, memory, or resources required to perform
 
 ## P
 
+### Pointer
+A pointer is a variable that stores the memory address of another object, such as a variable, array element, or function.
+
 ### Preprocessor
 A preprocessor is a program that processes [source code](/docs/c/keywords.mdx#source-code) before it is compiled. It can perform tasks such as macro substitution, file inclusion, and [conditional compilation](/docs/c/keywords.mdx#conditional-compilation).
 
 ## Q
 
 ### Queue
-A queue is a linear data structure that follows the FIFO principle.
+A queue is a linear [data structure](/docs/c/keywords.mdx#data-structure) that follows the FIFO (First-In-First-Out) principle, where elements are added at one end and removed from the other.
 
 ## R
 
 ### Relational Operation
-A relational operation is a type of operation that compares two [operands](/docs/c/keywords.mdx#operand) and returns a [boolean value](/docs/c/keywords.mdx#boolean) (true or false) based on the relationship between the operands. Common relational operations include equality (`==`), inequality (`!=`), greater than (`>`), less than (`<`), greater than or equal to (`>=`), and less than or equal to (`<=`). Relational operations are often used in [conditional statements](/docs/c/keywords.mdx#conditional-statement) and [loops](/docs/c/keywords.mdx#loop) to control the flow of a program based on the comparison of values. They are essential for making decisions and implementing logic in programs, allowing developers to evaluate conditions and execute different code paths accordingly.
+A relational operation is a type of operation that compares two [operands](/docs/c/keywords.mdx#operand) using relational [operators](/docs/c/keywords.mdx#operator) and returns a [boolean value](/docs/c/keywords.mdx#boolean) (true or false) based on the relationship between the operands. Common relational operations include equality (`==`), inequality (`!=`), greater than (`>`), less than (`<`), greater than or equal to (`>=`), and less than or equal to (`<=`). Relational operations are often used in [conditional statements](/docs/c/keywords.mdx#conditional-statement) and [loops](/docs/c/keywords.mdx#loop) to control the flow of a program based on the comparison of values. They are essential for making decisions and implementing logic in programs, allowing developers to evaluate conditions and execute different code paths accordingly.
 
 ## S
 
+### Standard Input
+Standard input is the default input stream used by a program, typically the keyboard.
+
+### Standard Output
+Standard output is the default output stream used by a program, typically the terminal.
+
 ### Scope
-Scope refers to the region of a program where a [variable](/docs/c/keywords.mdx#variable), [function](/docs/c/keywords.mdx#function), or [type](/docs/c/keywords.mdx#type) is accessible and can be used. In C, there are different types of scope, including global scope, local scope, and block scope. Global scope refers to identifiers that are accessible throughout the entire program, while local scope refers to identifiers that are accessible only within a specific [function](/docs/c/keywords.mdx#function) or block of code. Block scope is limited to the block in which the identifier is declared, such as within a loop or conditional statement. Understanding scope is important for managing variable lifetimes, avoiding naming conflicts, and ensuring that the correct values are used in different parts of a program.
+Scope refers to the region of a program where a [variable](/docs/c/keywords.mdx#variable), [function](/docs/c/keywords.mdx#function), or [type](/docs/c/keywords.mdx#type) is accessible and can be used. In C, there are different types of scope, including global scope, local scope, and block scope. Global scope refers to identifiers that are accessible throughout the entire program, while local scope refers to identifiers that are accessible only within a specific [function](/docs/c/keywords.mdx#function) or block of code. Block scope is limited to the block in which the [identifier](/docs/c/keywords.mdx#identifier) is declared, such as within a [loop](/docs/c/keywords.mdx#loop) or [conditional statement](/docs/c/keywords.mdx#conditional-statement). Understanding scope is important for managing variable lifetimes, avoiding naming conflicts, and ensuring that the correct values are used in different parts of a program.
 
 ### Signed Integer
 A signed integer is a [data type](/docs/c/keywords.mdx#type) that can represent both positive and negative whole numbers. In C, signed integers are typically represented using a fixed number of bits, with one bit reserved for indicating the sign (positive or negative) and the remaining bits used to represent the magnitude of the number. The range of values that a signed integer can represent depends on the number of bits allocated for the type (e.g., `int`, `short`, `long`). Signed integers are commonly used in programming for tasks that require the representation of both positive and negative values, such as mathematical calculations, counters, and data processing.
@@ -211,16 +256,16 @@ A signed integer is a [data type](/docs/c/keywords.mdx#type) that can represent 
 A source file is a file that contains code written in a programming language, which can be compiled or interpreted to create an [executable program](/docs/c/keywords.mdx#executable-program).
 
 ### Stack
-A stack is a linear data structure that follows the LIFO principle.
+A stack is a linear [data structure](/docs/c/keywords.mdx#data-structure) that follows the LIFO (Last-In-First-Out) principle, where elements are added and removed from the same end.
 
 ### Standard Library Function
 A standard library function is a pre-defined [function](/docs/c/keywords.mdx#function) provided by the programming language's standard library, which can be used to perform common tasks such as input/output operations, string manipulation, mathematical calculations, and more. In C, examples of standard library functions include `printf()`, `scanf()`, `strlen()`, and `malloc()`.
 
 ### Statement
-A statement is a single line of code that performs a specific action in a program. In C, statements are typically terminated with a semicolon (`;`), which indicates the end of the statement. Statements can include variable declarations, function calls, control flow statements (like `if` or `for`), and other [expressions](/docs/c/keywords.mdx#expression) that perform operations or manipulate data.
+A statement is a single line of code that performs a specific action in a program. In C, statements are typically terminated with a semicolon (`;`), which indicates the end of the statement. Statements can include [declarations](/docs/c/keywords.mdx#declaration), [function calls](/docs/c/keywords.mdx#function-call), [control flow statements](/docs/c/keywords.mdx#control-flow-statement) (like `if` or `for`), and other [expressions](/docs/c/keywords.mdx#expression) that perform operations or manipulate data.
 
 ### Statement Block
-A statement block is a group of [statements](/docs/c/keywords.mdx#statement) enclosed in curly braces (`{}`) that are treated as a single unit. Statement blocks are used to define the body of [functions](/docs/c/keywords.mdx#function), [loops](/docs/c/keywords.mdx#loop), and [conditional statements](/docs/c/keywords.mdx#conditional-statement), allowing multiple statements to be executed together based on certain conditions or as part of a function's execution. Statement blocks help organize code, improve readability, and allow for more complex logic to be implemented in a structured manner.
+A statement block is a group of [statements](/docs/c/keywords.mdx#statement) enclosed in curly braces (`{}`) that are treated as a single unit. Statement blocks are used to define the body of [functions](/docs/c/keywords.mdx#function), [loops](/docs/c/keywords.mdx#loop), and [conditional statements](/docs/c/keywords.mdx#conditional-statement), allowing multiple statements to be executed together based on certain conditions or as part of a function's execution. Statement blocks help organize code, improve readability, and allow for more complex logic to be implemented in a structured manner. They also affect [scope](/docs/c/keywords.mdx#scope).
 
 ### Stream
 A stream is a sequence of data elements made available over time, typically used for input and output operations in programming. In C, streams are used to handle data from various sources, such as files, standard input/output (stdin/stdout), and network connections. Streams provide a way to read from or write to these data sources in a consistent manner, allowing for efficient data processing and manipulation. The C standard library provides functions for working with streams, such as `fopen()`, `fclose()`, `fread()`, `fwrite()`, `fprintf()`, and `fscanf()`, which enable programmers to perform file I/O and other stream-based operations.
@@ -234,7 +279,7 @@ A structure is a user-defined [data type](/docs/c/keywords.mdx#type) in C that a
 ## T
 
 ### Tree
-A tree is a hierarchical data structure composed of nodes connected by edges.
+A tree is a hierarchical [data structure](/docs/c/keywords.mdx#data-structure) composed of nodes connected by [edges](/docs/c/keywords.mdx#edge), with a root node and parent-child relationships.
 
 ### Type
 A type is a classification of data that defines the kind of values a variable can hold and the operations that can be performed on those values. In C, common data types include `int` for integers, `float` for floating-point numbers, `char` for characters, and `void` for functions that do not return a value. Types can also be user-defined, such as [structures](/docs/c/keywords.mdx#structure) and [enumerations](/docs/c/keywords.mdx#enumeration), allowing programmers to create complex [data structures](/docs/c/keywords.mdx#data-structure) and [abstractions](/docs/c/keywords.mdx#abstraction).

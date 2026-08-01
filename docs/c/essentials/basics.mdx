@@ -201,266 +201,6 @@ There are reserved words with special meaning, called keywords. We should not us
 | `volatile` | Storage class modifier - Volatile storage class |
 | `while` | Loop statement - While loop |
 
-
-## Data Types
-
-### `char`
-
-Represent a single character. Computer can only store numeric code, therefore, characters such as `A, a, B, b` and so on, all have a unique numeric code.
-
-Usually `char` takes 8 bits (1 byte).
-
-#### Character Variable
-
-We can declare a `char` data type in the following ways:
-
-```c
-char variable_name;
-
-/* more than one variable declaration */
-char variable_name1;
-char variable_name2;
-char variable_name3;
-
-/* another way is */
-char variable_name1, variable_name2, variable_name3;
-
-/* declare and set */
-char character1 = 'A';
-
-/* also */
-char x, y, z;
-x = 'A';
-y = 'g';
-z = '3';
-```
-
-:::warning[Character vs. Number]
-the las assignment `z = '3'`, sets `z` to the numeric value that represent the character `'3'`, not to the actual number `3`.
-:::
-
-#### Character Constants
-
-A character enclosed in single quotes (`'`) is called [character constant](/docs/c/keywords.mdx#character-constant). For example, `'A'`, `'g'`, and `'3'` are character constants. [Character constants](/docs/c/keywords.mdx#character-constant) always be with single quotes, while [string](/docs/c/keywords.mdx#string), or more than one character uses double quotes (`"`). For example, `"Hello"` is a [string](/docs/c/keywords.mdx#string).
-
-From the [ASCII table](/docs/c/keywords.mdx#ascii-table), we can see that the character `'A'` has a numeric value of `65`, and the character `'g'` has a numeric value of `103`. Therefore, when we assign `z = '3'`, we are actually assigning the numeric value `51` to `z`, which is the ASCII code for the character `'3'`.
-
-Those are equivalent:
-
-```c
-char z = '3';
-char z = 51; /* ASCII code for '3' */
-```
-
-#### The Escape Character
-
-An escape character is a special character used to represent certain non-printable or special characters in a string or character constant. In C, the backslash (`\`) is used as the escape character. Some common escape sequences include:
-
-- `\b` : Backspace (move the cursor one position back)
-- `\f` : Form feed (move the cursor to the beginning of the next page)
-- `\n` : Newline (move the cursor to the beginning of the next line)
-- `\r` : Carriage return (move the cursor to the beginning of the current line)
-- `\t` : Horizontal tab (move the cursor to the next tab stop)
-- `\\` : Backslash (print a backslash character)
-- `\'` : Single quote (print a single quote character)
-- `\"` : Double quote (print a double quote character)
-
-#### Printing Characters
-
-To print a character in C, we use the `printf` function with the `%c` format specifier. For example:
-
-```c
-char character = 'A';
-char character2 = 103; /* ASCII code for 'g' */
-printf("The character is: %c\n", character);
-printf("The ASCII value of the character is: %d\n", character);
-printf("The character with the ASCII value %d is: %c\n", character2, character2);
-```
-
-Output:
-```
-The character is: A
-The ASCII value of the character is: 65
-The character with the ASCII value 103 is: g
-```
-
-### `int`
-
-Integer data type is used to represent whole numbers, which has no fractional part. In C, the `int` data type typically takes 4 bytes (32 bits) of memory, allowing it to store values in the range of $-2,147,483,648$ ($-2^{31}$) to $2,147,483,647$ ($2^{31}-1$) for [signed integers](/docs/c/keywords.mdx#signed-integer). [Unsigned integers](/docs/c/keywords.mdx#unsigned-integer) can store values from $0$ to $4,294,967,295$ ($2^{32}-1$).
-
-#### Integer Division
-
-When performing division with integers in C, the result will also be an integer. This means that any fractional part of the result will be truncated (not rounded). For example:
-
-```c
-int a = 7;
-int b = 2;
-int result = a / b; // result will be 3, not 3.5
-```
-
-#### Declaring Integer Variables
-
-```c
-int number1;
-int number2;
-int number3;
-
-/* another way is */
-int number1, number2, number3;
-
-/* declare and set */
-int number = 10;
-
-/* also */
-int a, b, c;
-a = 5;
-b = 15;
-c = 20;
-```
-
-#### Printing Integers
-
-To print an integer in C, we use the `printf` function with the `%d` format specifier. For example:
-
-```c
-int number = 10;
-printf("The number is: %d\n", number);
-```
-
-Output:
-```
-The number is: 10
-```
-
-### `float`
-
-The `float` data type is used to represent single-precision floating-point numbers, which can store decimal values. In C, the `float` data type typically takes 4 bytes (32 bits) of memory and can represent values in the range of approximately $1.2 \times 10^{-38}$ to $3.4 \times 10^{38}$. 
-
-A floating-point number can be suffixed with `f` or `F` to indicate that it is a float literal. For example, `3.14f` is a float literal, while `3.14` is treated as a `double` literal by default.
-
-#### Float Division
-
-When performing division with floating-point numbers in C, the result will also be a floating-point number. For example:
-`43.2 / 10.0` produces another floating-point number, so do `43.2 / 10` and `43 / 10.0`. But `43 / 10` produces an integer, because both operands are integers.
-
-```c
-int int_num1, int_num2, int_num3; /* Declare integer variables */
-float flt_num1, flt_num2, flt_num3; /* Declare floating-point variables */
-
-int_num1 = 32 / 10; /* Both divisor and dividend are integers */
-flt_num1 = 32 / 10; /* Both divisor and dividend are integers */
-int_num2 = 32.0 / 10; /* Dividend is a float */
-flt_num2 = 32.0 / 10; /* Dividend is a float */
-int_num3 = 32 / 10.0; /* Divisor is a float */
-flt_num3 = 32 / 10.0; /* Divisor is a float */
-
-printf("The integer quotient of 32/10 is: %d\n", int_num1);
-printf("The float quotient of 32/10 is: %f\n", flt_num1);
-printf("The integer quotient of 32.0/10 is: %d\n", int_num2);
-printf("The float quotient of 32.0/10 is: %f\n", flt_num2);
-printf("The integer quotient of 32/10.0 is: %d\n", int_num3);
-printf("The float quotient of 32/10.0 is: %f\n", flt_num3);
-```
-
-Output:
-```
-The integer quotient of 32/10 is: 3
-The float quotient of 32/10 is: 3.000000
-The integer quotient of 32.0/10 is: 3
-The float quotient of 32.0/10 is: 3.200000
-The integer quotient of 32/10.0 is: 3
-The float quotient of 32/10.0 is: 3.200000
-```
-
-#### Declaring Float Variables
-
-```c
-float number1;
-float number2;
-float number3;
-
-/* another way is */
-float number1, number2, number3;
-
-/* declare and set */
-float number = 3.14f;
-
-/* also */
-float a, b, c;
-a = 1.5f;
-b = -2.5F;
-c = 3.5;
-```
-
-#### Printing Floats
-
-To print a float in C, we use the `printf` function with the `%f` format specifier. For example:
-
-```c
-float number = 3.14f;
-printf("The float number is: %f\n", number);
-```
-
-Output:
-```
-The float number is: 3.140000
-```
-
-### `double`
-
-The `double` data type is used to represent double-precision floating-point numbers, which can store decimal values with greater precision than `float`. In C, the `double` data type typically takes 8 bytes (64 bits) of memory and can represent values in the range of approximately $2.3 \times 10^{-308}$ to $1.7 \times 10^{308}$.
-
-#### Declaring Double Variables
-
-```c
-double number1;
-double number2;
-double number3;
-
-/* another way is */
-double number1, number2, number3;
-
-/* declare and set */
-double number = 3.141592653589793;
-
-/* also */
-double a, b, c;
-a = 1.23456789;
-b = -2.34567890;
-c = 3.45678901;
-```
-
-#### Printing Doubles
-To print a double in C, we use the `printf` function with the `%lf` format specifier. For example:
-
-```c
-double number = 3.141592653589793;
-printf("The double number is: %lf\n", number);
-```
-
-#### Scientific Notation
-
-In C, you can also represent floating-point numbers using scientific notation (also known as exponential notation). This is useful for very large or very small numbers. The format is `mantissa e exponent`, where `e` or `E` indicates the power of 10. For example:
-
-```c
-double number1 = 5e3; // 5 * 10^3 (5000)
-double number2 = -3e2; // -3 * 10^2 (-300)
-double number3 = 2.5e-3; // 2.5 * 10^-3 (0.0025)
-
-
-printf("number1: %lf\n", number1);
-printf("number2: %lf\n", number2);
-printf("number3: %lf\n", number3);
-```
-
-
-Output:
-```
-number1: 5000.000000
-number2: -300.000000
-number3: 0.002500
-```
-
 ## Standard Input and Output (I/O)
 
 We will elaborate on the `printf` function, which is used for output, and we look at some functions to get input from the user, such as `getc`, `putc`, `getchar`, and `putchar`.
@@ -629,7 +369,7 @@ B
 C
 ```
 
-## `printf` Function
+### `printf` Function
 
 The `printf` function is used to print formatted output to the standard output stream (`stdout`). It allows you to display text, variables, and formatted data in a specific way.
 
@@ -645,7 +385,7 @@ The order of the arguments passed to `printf` must match the order of the format
 
 ![printf specifiers order](/img/c/essentials/printf_order.png)
 
-### Format Specifiers List
+#### Format Specifiers List
 
 | **Specifier** | **Description** |
 |---------------|----------------|
@@ -657,7 +397,11 @@ The order of the arguments passed to `printf` must match the order of the format
 | `%E` | Scientific notation (mantissa/exponent) with uppercase 'E' |
 | `%g` | Use the shorter of `%e` or `%f` |
 | `%G` | Use the shorter of `%E` or `%f` |
+| `%h` | Short integer |
+| `%l` \| `%L` | Long integer |
+| `%ll` | Long long integer |
 | `%o` | Unsigned octal |
+| `%z` | Size_t type |
 | `%s` | String of characters |
 | `%u` | Unsigned decimal integer |
 | `%x` | Unsigned hexadecimal integer (lowercase) |
@@ -666,7 +410,7 @@ The order of the arguments passed to `printf` must match the order of the format
 | `%n` | Number of characters written so far |
 | `%%` | A literal '%' character |
 
-### Minimum Field Width
+#### Minimum Field Width
 
 We can add integer between `%` and the letter of the format specifier to specify the _minimum field width_. The _minimum field width specifier_ ensures that the output occupies at least the specified number of characters. If the value to be printed is shorter than the specified width, it will be padded with spaces (by default) to meet the width requirement.
 
@@ -698,7 +442,7 @@ Output:
 12345
 ```
 
-### Alignment
+#### Alignment
 
 By default, the output is right-aligned within the specified field width. However, we can use a negative sign (`-`) before the field width to left-align the output.
 
@@ -733,7 +477,7 @@ Output:
    12345 12345   
 ```
 
-### Precision Specifier
+#### Precision Specifier
 
 The precision specifier is used to control the number of digits displayed after the decimal point for floating-point numbers. It is specified by placing a dot (`.`) followed by an integer between the `%` and the format specifier letter. The precision specifier can also be used with strings to limit the number of characters printed.
 
@@ -763,4 +507,79 @@ With precision specifier: 00000123
 Default float format:     123.456789
 With precision specifier: 123.46
 With precision specifier: 123.457
+```
+
+## Math
+
+In order to use mathematical functions in C, we need to include the `math.h` header file. This header file contains declarations for various mathematical functions, such as trigonometric functions, exponential and logarithmic functions, and more.
+
+### Trigonometric Functions
+
+We take for example the `sin`, `cos`, and `tan` functions, which calculate the sine, cosine, and tangent of an angle (in radians), respectively.
+
+The functions definition is as follows:
+
+```c
+#include <math.h>
+
+double sin(double x);
+double cos(double x);
+double tan(double x);
+```
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double angle = 0.5; // Angle in radians
+
+    double sine = sin(angle);
+    double cosine = cos(angle);
+    double tangent = tan(angle);
+
+    printf("Sine of %.2f radians: %.4f\n", angle, sine);
+    printf("Cosine of %.2f radians: %.4f\n", angle, cosine);
+    printf("Tangent of %.2f radians: %.4f\n", angle, tangent);
+
+    return 0;
+}
+```
+
+### Exponential and Logarithmic Functions
+
+The `exp` function calculates the exponential of a number, and the `log` function calculates the natural logarithm (base `e`) of a number.
+
+```c
+#include <math.h>
+
+double exp(double x);
+double log(double x);
+```
+
+Example:
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double value = 2.0;
+
+    double exponential = exp(value);
+    double logarithm = log(value);
+
+    printf("Exponential of %.2f: %.4f\n", value, exponential);
+    printf("Natural logarithm of %.2f: %.4f\n", value, logarithm);
+
+    return 0;
+}
+```
+
+`pow` and `sqrt` functions are used to calculate the power of a number and the square root of a number, respectively.
+
+```c
+#include <math.h>
+double pow(double base, double exponent);
+double sqrt(double x);
 ```

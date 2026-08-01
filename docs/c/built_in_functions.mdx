@@ -27,7 +27,7 @@ last_updated:
 
 ### `fclose`
 
-The `fclose` function is used to close an opened file. It is part of the C standard library and is declared in the [`stdio.h`](/docs/c/built_in_headers.mdx#stdioh) header file.
+The `fclose` function is used to close an opened file. It is part of the C [standard library function](/docs/c/keywords.mdx#standard-library-function) set and is declared in the [`stdio.h`](/docs/c/built_in_headers.mdx#stdioh) header file.
 
 #### Syntax
 ```c
@@ -35,7 +35,7 @@ int fclose(FILE *stream);
 ```
 
 #### Parameters
-- `stream`: A pointer to a `FILE` object that identifies the stream to be closed.
+- `stream`: A [pointer](/docs/c/keywords.mdx#pointer) to a `FILE` object that identifies the [stream](/docs/c/keywords.mdx#stream) to be closed.
 
 #### Example
 ```c
@@ -52,7 +52,7 @@ int main() {
 
 ### `printf`
 
-The `printf` function is used to output formatted text to the standard output (usually the terminal). It allows you to print variables, strings, and other data types in a specified format. The function is part of the C standard library and is declared in the [`stdio.h`](/docs/c/built_in_headers.mdx#stdioh) header file.
+The `printf` function is used to output formatted text to the standard output (usually the terminal). It allows you to print [variables](/docs/c/keywords.mdx#variable), [strings](/docs/c/keywords.mdx#string), and other [types](/docs/c/keywords.mdx#type) in a specified format. The function is part of the C [standard library function](/docs/c/keywords.mdx#standard-library-function) set and is declared in the [`stdio.h`](/docs/c/built_in_headers.mdx#stdioh) header file.
 
 #### Syntax
 ```c
@@ -60,7 +60,7 @@ int printf(const char *format, ...);
 ```
 
 #### Parameters
-- `format`: A string that contains text to be printed and format specifiers that determine how the subsequent arguments are formatted.
+- `format`: A [format string](/docs/c/keywords.mdx#format-string) that contains text to be printed and format specifiers that determine how the subsequent arguments are formatted.
 - `...`: A variable number of arguments that are formatted and printed according to the format specifiers.
 
 #### Example
@@ -82,4 +82,328 @@ int main() {
 - `%p`: Pointer
 - `%%`: Literal `%` character
 
-The `printf` function returns the number of characters printed (excluding the null byte used to end output to strings).
+The `printf` function returns the number of characters printed (excluding the [null character](/docs/c/keywords.mdx#null-character) used to end output to [strings](/docs/c/keywords.mdx#string)).
+
+### `feof`
+
+The `feof` function checks whether the [end-of-file (EOF)](/docs/c/keywords.mdx#end-of-file-eof) indicator is set for a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int feof(FILE *stream);
+```
+
+#### Parameters
+- `stream`: A [pointer](/docs/c/keywords.mdx#pointer) to the `FILE` object to test.
+
+### `ferror`
+
+The `ferror` function checks whether the error indicator is set for a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int ferror(FILE *stream);
+```
+
+#### Parameters
+- `stream`: A [pointer](/docs/c/keywords.mdx#pointer) to the `FILE` object to test.
+
+### `fgetc`
+
+The `fgetc` function reads the next [character](/docs/c/keywords.mdx#character-constant) from a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int fgetc(FILE *stream);
+```
+
+#### Parameters
+- `stream`: A [pointer](/docs/c/keywords.mdx#pointer) to the input [stream](/docs/c/keywords.mdx#stream).
+
+### `fgets`
+
+The `fgets` function reads a line of text from a [stream](/docs/c/keywords.mdx#stream) into a character array.
+
+#### Syntax
+```c
+char *fgets(char *str, int n, FILE *stream);
+```
+
+#### Parameters
+- `str`: Destination [buffer](/docs/c/keywords.mdx#buffer).
+- `n`: Maximum number of characters to read (including the terminating [null character](/docs/c/keywords.mdx#null-character)).
+- `stream`: A [pointer](/docs/c/keywords.mdx#pointer) to the input [stream](/docs/c/keywords.mdx#stream).
+
+### `fopen`
+
+The `fopen` function opens a file and returns a [file pointer](/docs/c/keywords.mdx#file-pointer) associated with that file.
+
+#### Syntax
+```c
+FILE *fopen(const char *filename, const char *mode);
+```
+
+#### Parameters
+- `filename`: Path to the file.
+- `mode`: File access mode (for example, `"r"`, `"w"`, `"a"`).
+
+### `fprintf`
+
+The `fprintf` function writes formatted output to a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int fprintf(FILE *stream, const char *format, ...);
+```
+
+#### Parameters
+- `stream`: Target output [stream](/docs/c/keywords.mdx#stream).
+- `format`: [Format string](/docs/c/keywords.mdx#format-string).
+- `...`: Values formatted according to `format`.
+
+### `fputc`
+
+The `fputc` function writes one [character](/docs/c/keywords.mdx#character-constant) to a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int fputc(int ch, FILE *stream);
+```
+
+#### Parameters
+- `ch`: Character to write.
+- `stream`: Target output [stream](/docs/c/keywords.mdx#stream).
+
+### `fputs`
+
+The `fputs` function writes a [null character](/docs/c/keywords.mdx#null-character)-terminated [string](/docs/c/keywords.mdx#string) to a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int fputs(const char *str, FILE *stream);
+```
+
+#### Parameters
+- `str`: [String](/docs/c/keywords.mdx#string) to write.
+- `stream`: Target output [stream](/docs/c/keywords.mdx#stream).
+
+### `fread`
+
+The `fread` function reads binary data from a [stream](/docs/c/keywords.mdx#stream) into memory.
+
+#### Syntax
+```c
+size_t fread(void *ptr, size_t size, size_t count, FILE *stream);
+```
+
+#### Parameters
+- `ptr`: Destination [buffer](/docs/c/keywords.mdx#buffer).
+- `size`: Size in bytes of each element.
+- `count`: Number of elements to read.
+- `stream`: Input [stream](/docs/c/keywords.mdx#stream).
+
+### `fscanf`
+
+The `fscanf` function reads formatted input from a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int fscanf(FILE *stream, const char *format, ...);
+```
+
+#### Parameters
+- `stream`: Input [stream](/docs/c/keywords.mdx#stream).
+- `format`: [Format string](/docs/c/keywords.mdx#format-string).
+- `...`: Addresses of [variables](/docs/c/keywords.mdx#variable) that receive parsed values.
+
+### `fseek`
+
+The `fseek` function moves the file position indicator for a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int fseek(FILE *stream, long offset, int origin);
+```
+
+#### Parameters
+- `stream`: [Stream](/docs/c/keywords.mdx#stream) whose position is changed.
+- `offset`: Number of bytes relative to `origin`.
+- `origin`: Position reference [constants](/docs/c/keywords.mdx#constant) (`SEEK_SET`, `SEEK_CUR`, or `SEEK_END`).
+
+### `ftell`
+
+The `ftell` function returns the current file position indicator for a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+long ftell(FILE *stream);
+```
+
+#### Parameters
+- `stream`: [Stream](/docs/c/keywords.mdx#stream) to query.
+
+### `fwrite`
+
+The `fwrite` function writes binary data from memory to a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+size_t fwrite(const void *ptr, size_t size, size_t count, FILE *stream);
+```
+
+#### Parameters
+- `ptr`: Source [buffer](/docs/c/keywords.mdx#buffer).
+- `size`: Size in bytes of each element.
+- `count`: Number of elements to write.
+- `stream`: Output [stream](/docs/c/keywords.mdx#stream).
+
+### `getc`
+
+The `getc` function reads the next [character](/docs/c/keywords.mdx#character-constant) from a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int getc(FILE *stream);
+```
+
+#### Parameters
+- `stream`: Input [stream](/docs/c/keywords.mdx#stream).
+
+### `getchar`
+
+The `getchar` function reads the next [character](/docs/c/keywords.mdx#character-constant) from standard input.
+
+#### Syntax
+```c
+int getchar(void);
+```
+
+### `putc`
+
+The `putc` function writes one [character](/docs/c/keywords.mdx#character-constant) to a [stream](/docs/c/keywords.mdx#stream).
+
+#### Syntax
+```c
+int putc(int ch, FILE *stream);
+```
+
+#### Parameters
+- `ch`: Character to write.
+- `stream`: Output [stream](/docs/c/keywords.mdx#stream).
+
+### `putchar`
+
+The `putchar` function writes one [character](/docs/c/keywords.mdx#character-constant) to standard output.
+
+#### Syntax
+```c
+int putchar(int ch);
+```
+
+#### Parameters
+- `ch`: Character to write.
+
+### `puts`
+
+The `puts` function writes a [string](/docs/c/keywords.mdx#string) to standard output followed by a newline.
+
+#### Syntax
+```c
+int puts(const char *str);
+```
+
+#### Parameters
+- `str`: [String](/docs/c/keywords.mdx#string) to write.
+
+### `remove`
+
+The `remove` function deletes a file.
+
+#### Syntax
+```c
+int remove(const char *filename);
+```
+
+#### Parameters
+- `filename`: Path to the file to remove.
+
+### `rename`
+
+The `rename` function changes the name of a file.
+
+#### Syntax
+```c
+int rename(const char *oldname, const char *newname);
+```
+
+#### Parameters
+- `oldname`: Existing file path.
+- `newname`: New file path.
+
+### `rewind`
+
+The `rewind` function resets a [stream](/docs/c/keywords.mdx#stream) position to the beginning of the file.
+
+#### Syntax
+```c
+void rewind(FILE *stream);
+```
+
+#### Parameters
+- `stream`: [Stream](/docs/c/keywords.mdx#stream) to reset.
+
+### `scanf`
+
+The `scanf` function reads formatted input from standard input.
+
+#### Syntax
+```c
+int scanf(const char *format, ...);
+```
+
+#### Parameters
+- `format`: [Format string](/docs/c/keywords.mdx#format-string).
+- `...`: Addresses of [variables](/docs/c/keywords.mdx#variable) that receive parsed values.
+
+### `snprintf`
+
+The `snprintf` function writes formatted output to a [string](/docs/c/keywords.mdx#string) [buffer](/docs/c/keywords.mdx#buffer) with a size limit.
+
+#### Syntax
+```c
+int snprintf(char *str, size_t size, const char *format, ...);
+```
+
+#### Parameters
+- `str`: Destination [buffer](/docs/c/keywords.mdx#buffer).
+- `size`: Buffer size in bytes.
+- `format`: [Format string](/docs/c/keywords.mdx#format-string).
+- `...`: Values formatted according to `format`.
+
+### `sprintf`
+
+The `sprintf` function writes formatted output to a [string](/docs/c/keywords.mdx#string) [buffer](/docs/c/keywords.mdx#buffer).
+
+#### Syntax
+```c
+int sprintf(char *str, const char *format, ...);
+```
+
+#### Parameters
+- `str`: Destination [buffer](/docs/c/keywords.mdx#buffer).
+- `format`: [Format string](/docs/c/keywords.mdx#format-string).
+- `...`: Values formatted according to `format`.
+
+### `sscanf`
+
+The `sscanf` function reads formatted input from a [string](/docs/c/keywords.mdx#string).
+
+#### Syntax
+```c
+int sscanf(const char *str, const char *format, ...);
+```
+
+#### Parameters
+- `str`: Input [string](/docs/c/keywords.mdx#string).
+- `format`: [Format string](/docs/c/keywords.mdx#format-string).
+- `...`: Addresses of [variables](/docs/c/keywords.mdx#variable) that receive parsed values.

@@ -3,7 +3,7 @@ id: loops
 title: Loops
 pagination_label: title
 sidebar_label: Loops
-sidebar_position: 2
+sidebar_position: 5
 sidebar_class_name: loops-sidebar
 sidebar_key: loops-key
 hide_title: false
@@ -27,3 +27,168 @@ last_updated:
   date: 16/07/2026
   author: Lior Abel
 ---
+
+Loops are a fundamental concept in programming that allow you to execute a block of code multiple times. In C, there are three main types of loops: `for`, `while`, and `do-while`. Each type of loop has its own syntax and use cases. A loop is also called an iteration.
+
+## `while` Loop
+
+The `while` loop is used to execute a block of code repeatedly as long as a specified condition is true. The syntax for a `while` loop is as follows:
+
+```c
+while (expression) {
+    // Code to be executed
+}
+```
+
+The `expression` is the condition, it is evaluated first. If it's evaluated to a non-zero value, then the condition is true, and the code inside is executed. The `expression` is evaluated again after the code block is executed. If the `expression` is still true, the code block will run again. This process continues until the `expression` evaluates to false (zero).
+
+The idea is that the code inside the loop will eventually make the `expression` to be false.
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+    while (i < 5) {
+        printf("%d\n", i);
+        i++;
+    }
+    return 0;
+}
+```
+
+Output:
+```
+0
+1
+2
+3
+4
+```
+
+## `do-while` Loop
+
+The `do-while` loop is similar to the `while` loop, but it guarantees that the code block will be executed at least once. The syntax for a `do-while` loop is as follows:
+
+```c
+do {
+    // Code to be executed
+} while (expression);
+```
+
+The `expression` is evaluated after the code block is executed. If it's true (non-zero), the code block will run again. This process continues until the `expression` evaluates to false (zero).
+
+The `do-while` ends with a semicolon (`;`) after the `while` statement.
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 0;
+    do {
+        printf("%d\n", i);
+        i++;
+    } while (i < 5);
+    return 0;
+}
+```
+
+Output:
+```
+0
+1
+2
+3
+4
+```
+
+## `for` Loop
+
+The `for` loop is used to execute a block of code a specific number of times. The syntax for a `for` loop is as follows:
+
+```c
+for (initialization; condition; increment) {
+    // Code to be executed
+}
+```
+
+- `initialization` is executed once at the beginning of the loop.
+- `condition` is evaluated before each iteration. If it's true (non-zero), the code block is executed.
+- `increment` is executed after each iteration of the loop.
+
+:::info
+`initialization`, `condition`, and `increment` are all expressions, and they can be omitted if not needed. However, the semicolons (`;`) must still be present.
+:::
+
+First the `initialization` is executed, then the `condition` is evaluated. If it's true, the code block is executed, and then the `increment` is executed. This process continues until the `condition` evaluates to false (zero).
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 0; i < 5; i++) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+```
+
+Output:
+```
+0
+1
+2
+3
+4
+```
+
+### Complex Expression in a `for` Statement
+
+We can use comma operator (`,`) to have multiple expressions in the three part of the `for` statement.
+
+```c
+for (int i = 0, j = 10; i != j; i++, j--) {
+    printf("i: %d, j: %d\n", i, j);
+}
+```
+
+Here , we have two variables `i` and `j` initialized in the initialization part. The condition checks if `i` is not equal to `j`, and in the increment part, we increment `i` and decrement `j`. This loop will continue until `i` equals `j`.
+
+## Nested Loops
+
+Nested loops are loops inside other loops. The inner loop is executed completely for each iteration of the outer loop.
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("i: %d, j: %d\n", i, j);
+        }
+    }
+    return 0;
+}
+```
+
+Output:
+```
+i: 0, j: 0
+i: 0, j: 1
+i: 0, j: 2
+i: 1, j: 0
+i: 1, j: 1
+i: 1, j: 2
+i: 2, j: 0
+i: 2, j: 1
+i: 2, j: 2
+```
+

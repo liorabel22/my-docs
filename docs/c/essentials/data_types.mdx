@@ -1,0 +1,414 @@
+---
+id: c-data-types
+title: Data Types
+pagination_label: title
+sidebar_label: Data Types
+sidebar_position: 3
+sidebar_class_name: data-types-sidebar
+sidebar_key: data-types-key
+hide_title: false
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+custom_edit_url: null
+keywords:
+  - c
+  - c programming
+  - int
+  - integer
+  - float
+  - double
+  - char
+  - string
+  - data types
+description: C data types are the building blocks of any C program. Learn about the different data types available in C, including integers, floating-point numbers, characters, and more.
+tags:
+  - int
+  - integer
+  - float
+  - double
+  - char
+  - string
+  - data types
+last_updated:
+  date: 18/07/2026
+  author: Lior Abel
+---
+
+## `char`
+
+Represent a single character. Computer can only store numeric code, therefore, characters such as `A, a, B, b` and so on, all have a unique numeric code.
+
+Usually `char` takes 8 bits (1 byte).
+
+### Character Variable
+
+We can declare a `char` data type in the following ways:
+
+```c
+char variable_name;
+
+/* more than one variable declaration */
+char variable_name1;
+char variable_name2;
+char variable_name3;
+
+/* another way is */
+char variable_name1, variable_name2, variable_name3;
+
+/* declare and set */
+char character1 = 'A';
+
+/* also */
+char x, y, z;
+x = 'A';
+y = 'g';
+z = '3';
+```
+
+:::warning[Character vs. Number]
+the las assignment `z = '3'`, sets `z` to the numeric value that represent the character `'3'`, not to the actual number `3`.
+:::
+
+### Character Constants
+
+A character enclosed in single quotes (`'`) is called [character constant](/docs/c/keywords.mdx#character-constant). For example, `'A'`, `'g'`, and `'3'` are character constants. [Character constants](/docs/c/keywords.mdx#character-constant) always be with single quotes, while [string](/docs/c/keywords.mdx#string), or more than one character uses double quotes (`"`). For example, `"Hello"` is a [string](/docs/c/keywords.mdx#string).
+
+From the [ASCII table](/docs/c/keywords.mdx#ascii-table), we can see that the character `'A'` has a numeric value of `65`, and the character `'g'` has a numeric value of `103`. Therefore, when we assign `z = '3'`, we are actually assigning the numeric value `51` to `z`, which is the ASCII code for the character `'3'`.
+
+Those are equivalent:
+
+```c
+char z = '3';
+char z = 51; /* ASCII code for '3' */
+```
+
+### The Escape Character
+
+An escape character is a special character used to represent certain non-printable or special characters in a string or character constant. In C, the backslash (`\`) is used as the escape character. Some common escape sequences include:
+
+- `\b` : Backspace (move the cursor one position back)
+- `\f` : Form feed (move the cursor to the beginning of the next page)
+- `\n` : Newline (move the cursor to the beginning of the next line)
+- `\r` : Carriage return (move the cursor to the beginning of the current line)
+- `\t` : Horizontal tab (move the cursor to the next tab stop)
+- `\\` : Backslash (print a backslash character)
+- `\'` : Single quote (print a single quote character)
+- `\"` : Double quote (print a double quote character)
+
+### Printing Characters
+
+To print a character in C, we use the `printf` function with the `%c` format specifier. For example:
+
+```c
+char character = 'A';
+char character2 = 103; /* ASCII code for 'g' */
+printf("The character is: %c\n", character);
+printf("The ASCII value of the character is: %d\n", character);
+printf("The character with the ASCII value %d is: %c\n", character2, character2);
+```
+
+Output:
+```
+The character is: A
+The ASCII value of the character is: 65
+The character with the ASCII value 103 is: g
+```
+
+## `int`
+
+Integer data type is used to represent whole numbers, which has no fractional part. In C, the `int` data type typically takes 4 bytes (32 bits) of memory, allowing it to store values in the range of $-2,147,483,648$ ($-2^{31}$) to $2,147,483,647$ ($2^{31}-1$) for [signed integers](/docs/c/keywords.mdx#signed-integer). [Unsigned integers](/docs/c/keywords.mdx#unsigned-integer) can store values from $0$ to $4,294,967,295$ ($2^{32}-1$).
+
+### Integer Division
+
+When performing division with integers in C, the result will also be an integer. This means that any fractional part of the result will be truncated (not rounded). For example:
+
+```c
+int a = 7;
+int b = 2;
+int result = a / b; // result will be 3, not 3.5
+```
+
+### Declaring Integer Variables
+
+```c
+int number1;
+int number2;
+int number3;
+
+/* another way is */
+int number1, number2, number3;
+
+/* declare and set */
+int number = 10;
+
+/* also */
+int a, b, c;
+a = 5;
+b = 15;
+c = 20;
+```
+
+### Printing Integers
+
+To print an integer in C, we use the `printf` function with the `%d` format specifier. For example:
+
+```c
+int number = 10;
+printf("The number is: %d\n", number);
+```
+
+Output:
+```
+The number is: 10
+```
+
+## `float`
+
+The `float` data type is used to represent single-precision floating-point numbers, which can store decimal values. In C, the `float` data type typically takes 4 bytes (32 bits) of memory and can represent values in the range of approximately $1.2 \times 10^{-38}$ to $3.4 \times 10^{38}$. 
+
+A floating-point number can be suffixed with `f` or `F` to indicate that it is a float literal. For example, `3.14f` is a float literal, while `3.14` is treated as a `double` literal by default.
+
+### Float Division
+
+When performing division with floating-point numbers in C, the result will also be a floating-point number. For example:
+`43.2 / 10.0` produces another floating-point number, so do `43.2 / 10` and `43 / 10.0`. But `43 / 10` produces an integer, because both operands are integers.
+
+```c
+int int_num1, int_num2, int_num3; /* Declare integer variables */
+float flt_num1, flt_num2, flt_num3; /* Declare floating-point variables */
+
+int_num1 = 32 / 10; /* Both divisor and dividend are integers */
+flt_num1 = 32 / 10; /* Both divisor and dividend are integers */
+int_num2 = 32.0 / 10; /* Dividend is a float */
+flt_num2 = 32.0 / 10; /* Dividend is a float */
+int_num3 = 32 / 10.0; /* Divisor is a float */
+flt_num3 = 32 / 10.0; /* Divisor is a float */
+
+printf("The integer quotient of 32/10 is: %d\n", int_num1);
+printf("The float quotient of 32/10 is: %f\n", flt_num1);
+printf("The integer quotient of 32.0/10 is: %d\n", int_num2);
+printf("The float quotient of 32.0/10 is: %f\n", flt_num2);
+printf("The integer quotient of 32/10.0 is: %d\n", int_num3);
+printf("The float quotient of 32/10.0 is: %f\n", flt_num3);
+```
+
+Output:
+```
+The integer quotient of 32/10 is: 3
+The float quotient of 32/10 is: 3.000000
+The integer quotient of 32.0/10 is: 3
+The float quotient of 32.0/10 is: 3.200000
+The integer quotient of 32/10.0 is: 3
+The float quotient of 32/10.0 is: 3.200000
+```
+
+### Declaring Float Variables
+
+```c
+float number1;
+float number2;
+float number3;
+
+/* another way is */
+float number1, number2, number3;
+
+/* declare and set */
+float number = 3.14f;
+
+/* also */
+float a, b, c;
+a = 1.5f;
+b = -2.5F;
+c = 3.5;
+```
+
+### Printing Floats
+
+To print a float in C, we use the `printf` function with the `%f` format specifier. For example:
+
+```c
+float number = 3.14f;
+printf("The float number is: %f\n", number);
+```
+
+Output:
+```
+The float number is: 3.140000
+```
+
+## `double`
+
+The `double` data type is used to represent double-precision floating-point numbers, which can store decimal values with greater precision than `float`. In C, the `double` data type typically takes 8 bytes (64 bits) of memory and can represent values in the range of approximately $2.3 \times 10^{-308}$ to $1.7 \times 10^{308}$.
+
+### Declaring Double Variables
+
+```c
+double number1;
+double number2;
+double number3;
+
+/* another way is */
+double number1, number2, number3;
+
+/* declare and set */
+double number = 3.141592653589793;
+
+/* also */
+double a, b, c;
+a = 1.23456789;
+b = -2.34567890;
+c = 3.45678901;
+```
+
+### Printing Doubles
+To print a double in C, we use the `printf` function with the `%lf` format specifier. For example:
+
+```c
+double number = 3.141592653589793;
+printf("The double number is: %lf\n", number);
+```
+
+### Scientific Notation
+
+In C, you can also represent floating-point numbers using scientific notation (also known as exponential notation). This is useful for very large or very small numbers. The format is `mantissa e exponent`, where `e` or `E` indicates the power of 10. For example:
+
+```c
+double number1 = 5e3; // 5 * 10^3 (5000)
+double number2 = -3e2; // -3 * 10^2 (-300)
+double number3 = 2.5e-3; // 2.5 * 10^-3 (0.0025)
+
+
+printf("number1: %lf\n", number1);
+printf("number2: %lf\n", number2);
+printf("number3: %lf\n", number3);
+```
+
+
+Output:
+```
+number1: 5000.000000
+number2: -300.000000
+number3: 0.002500
+```
+
+## Measuring the Size of Data Types
+
+In C, you can use the `sizeof` operator to determine the size of a data type or a variable in bytes.
+
+The general syntax for using the `sizeof` operator is:
+
+```c
+sizeof(expression)
+```
+
+`expression` can be a data type (e.g., `int`, `float`, `double`, etc.) or a variable. The `sizeof` operator returns the size in **bytes** of the specified data type or variable.
+
+The parentheses around the data type are optional, but they are required when using `sizeof` with a data type. For example, `sizeof(int)` is valid, while `sizeof int` is not.
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+  char   ch = ' ';
+  int    int_num = 0;
+  float  flt_num = 0.0f;
+  double dbl_num = 0.0;
+
+    printf("The size of char is %d-byte\n", sizeof(char));
+    printf("The size of ch is %d-byte\n", sizeof ch);
+    printf("The size of int is %d-byte\n", sizeof(int));
+    printf("The size of int_num is %d-byte\n", sizeof int_num);
+    printf("The size of float is %d-byte\n", sizeof(float));
+    printf("The size of flt_num is %d-byte\n", sizeof flt_num);
+    printf("The size of double is %d-byte\n", sizeof(double));
+    printf("The size of dbl_num is %d-byte\n", sizeof dbl_num);
+    return 0;
+}
+```
+
+Output:
+```
+The size of char is 1-byte
+The size of ch is 1-byte
+The size of int is 4-byte
+The size of int_num is 4-byte
+The size of float is 4-byte
+The size of flt_num is 4-byte
+The size of double is 8-byte
+The size of dbl_num is 8-byte
+```
+
+## Sign Bit
+
+In order to represent both positive and negative numbers, C uses a sign bit. The most significant bit (MSB) of a signed integer is used as the sign bit. If the sign bit is `0`, the number is positive; if it is `1`, the number is negative.
+
+:::info
+Some computers may use different representations for negative numbers. The C language standard does not specify how negative numbers should be represented. _sign bit_ is a common representation.
+:::
+
+### `signed`
+
+Signed data types can represent both positive and negative numbers. The `signed` keyword is used to declare signed integer types (`char`, `int`, `short int`, `long int`). By default, all integer types are signed, except for `char`, so you usually don't need to explicitly use the `signed` keyword.
+
+```c
+signed char ch;
+```
+
+If we don't use the `signed` keyword, the `char` data type can be either signed or unsigned, depending on the compiler and platform. To ensure that a `char` is signed, you can explicitly declare it as `signed char`.
+
+The range of signed integers is typically from $-2^{(n-1)}$ to $2^{(n-1)} - 1$, where `n` is the number of bits used to store the integer.
+
+### `unsigned`
+
+Unsigned data types can only represent non-negative numbers (zero and positive numbers). The `unsigned` keyword is used to declare unsigned integer types (`char`, `int`, `short int`, `long int`). 
+
+```c
+unsigned int num;
+```
+
+That means that the range of unsigned integers is from $0$ to $2^n - 1$, where `n` is the number of bits used to store the integer.
+
+We can use the suffix `u` or `U` to indicate that a literal is an unsigned integer. For example, `42u` is an unsigned integer literal.
+
+## Data Sizes
+
+We can reduce or increase the size of the data types by using the following keywords:
+
+- `short` or `short int`: Typically used to declare a smaller integer type.
+- `long` or `long int`: Typically used to declare a larger integer type.
+- `long long` or `long long int`: Typically used to declare an even larger integer type.
+
+In order to indicate a `long` or `long long` literal, we can use the suffix `l` or `L` for `long`, and `ll` or `LL` for `long long`. For example, `42L` is a long integer literal, and `42LL` is a long long integer literal.
+
+Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Size of short int: %d bytes\n", sizeof(short int));
+    printf("Size of int: %d bytes\n", sizeof(int));
+    printf("Size of long int: %d bytes\n", sizeof(long int));
+    printf("Size of long long int: %d bytes\n", sizeof(long long int));
+    printf("Size of short double: %d bytes\n", sizeof(short double));
+    printf("Size of double: %d bytes\n", sizeof(double));
+    printf("Size of long double: %d bytes\n", sizeof(long double));
+    printf("Size of long long double: %d bytes\n", sizeof(long long double));
+    return 0;
+}
+```
+
+Output:
+```
+Size of short int: 2 bytes
+Size of int: 4 bytes
+Size of long int: 8 bytes
+Size of long long int: 8 bytes
+Size of short double: 8 bytes
+Size of double: 8 bytes
+Size of long double: 16 bytes
+Size of long long double: 16 bytes
+```
